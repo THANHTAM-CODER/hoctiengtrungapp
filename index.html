@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>说 汉语</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="petals"></div>
+
+<!-- 📘 HƯỚNG DẪN MODAL -->
+<div id="guideModal" class="modal">
+    <div class="modal-content">
+        <h2>📘 Hướng dẫn sử dụng</h2>
+
+        <p>📖Nhấn <b>Random</b> để lấy từ mới</p>
+        <p>📖Nhập nghĩa tiếng Việt vào ô trống</p>
+        <p>📖Nhấn <b>Kiểm Tra</b> để kiểm tra đáp án</p>
+        <p>⚠️Nếu một từ có nhiều nghĩa nhập hết các nghĩa, cách nhau bằng dấu phẩy</p>
+        <p>👉Ví dụ từ 好 có 3 nghĩa lần lượt là khỏe, tốt, ok</p>
+        <p>👉Nhập không đủ sẽ bị báo sai</p>
+
+        <button onclick="closeGuide()">⬅ Quay về</button>
+    </div>
+</div>
+
+<div class="container">
+
+    <h1>📖 学汉语</h1>
+    <h2 class="slogan">汉语不太难</h2>
+
+    <a href="page2.html"><button>📄 Ghép Câu</button></a>
+    <a href="words.html"><button>➕ Quản lý từ vựng</button></a>
+
+    <div class="card">
+
+        <h2 id="hanzi">Nhấn Random</h2>
+
+        <input type="text" id="answer" placeholder="Nhập nghĩa tiếng Việt">
+
+        <br>
+
+        <button onclick="checkAnswer()">Kiểm Tra</button>
+        <button onclick="randomWord()">Random Từ</button>
+        <button onclick="openGuide()">📘 Hướng dẫn</button>
+
+        <p id="result"></p>
+
+    </div>
+
+    <div class="score">
+        <p>✅ Đúng: <span id="correct">0</span></p>
+        <p>❌ Sai: <span id="wrong">0</span></p>
+
+        <div class="author">
+            Coder by: Nguyễn Thành Tâm
+        </div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+<!-- 📘 SCRIPT MODAL -->
+<script>
+function openGuide() {
+    document.getElementById("guideModal").style.display = "flex";
+}
+
+function closeGuide() {
+    document.getElementById("guideModal").style.display = "none";
+}
+</script>
+
+</body>
+</html>

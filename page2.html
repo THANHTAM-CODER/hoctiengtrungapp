@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Luyện Câu Tiếng Trung</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 420px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+#sentence {
+    font-size: 28px;
+    margin: 20px 0;
+    font-weight: bold;
+    color: black;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:nth-child(1) { background: #00c6ff; color: white; }
+button:nth-child(2) { background: #ff6b6b; color: white; }
+
+#timer {
+    font-size: 18px;
+    margin: 10px;
+    color: #ff3b3b;
+    font-weight: bold;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.logo {
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-6px)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="logo" class="logo">😊 Luyện Câu</h1>
+
+<div id="sentence">Nhấn Random</div>
+
+<div id="timer">⏳ 15s</div>
+
+<input type="text" id="answer" placeholder="Nhập nghĩa tiếng Việt">
+
+<br>
+
+<button onclick="randomSentence()">Random</button>
+<button onclick="checkSentence()">Kiểm tra</button>
+
+<p id="result"></p>
+
+<div>
+✔ Đúng: <span id="correct">0</span> |
+❌ Sai: <span id="wrong">0</span> |
+<a href="index.html">
+    <button>🏠 Quay lại trang chính</button>
+</a>
+</div>
+
+</div>
+
+<script src="sentences.js"></script>
+
+<script>
+let current = {};
+let correct = 0;
+let wrong = 0;
+
+let time = 15;
+let timer = null;
+let canRandom = false; // chưa trả lời xong thì không random
+
+// ================= TIMER =================
+function startTimer() {
+    clearInterval(timer);
+    time = 15;
+    canRandom = false;
+
+    document.getElementById("timer").innerText = "⏳ " + time + "s";
+
+    timer = setInterval(() => {
+        time--;
+        document.getElementById("timer").innerText = "⏳ " + time + "s";
+
+        if (time <= 0) {
+            clearInterval(timer);
+
+            wrong++;
+            document.getElementById("wrong").innerText = wrong;
+
+            document.getElementById("result").innerText =
+                "⛔ Hết thời gian! Đáp án: " + current.vi;
+            document.getElementById("result").style.color = "red";
+
+            canRandom = true; // cho phép random tiếp
+        }
+    }, 1000);
+}
+
+// ================= RANDOM =================
+function randomSentence() {
+
+    if (!canRandom && current.cn) {
+        alert("⚠️ Bạn chưa trả lời xong!");
+        return;
+    }
+
+    const index = Math.floor(Math.random() * sentences.length);
+    current = sentences[index];
+
+    document.getElementById("sentence").innerText = current.cn;
+    document.getElementById("answer").value = "";
+    document.getElementById("result").innerText = "";
+
+    document.getElementById("logo").innerText = "😊 Luyện Câu";
+
+    startTimer();
+}
+
+// ================= CHECK =================
+function checkSentence() {
+    let input = document.getElementById("answer").value.trim();
+    let result = document.getElementById("result");
+
+    if (!current.cn) {
+        result.innerText = "⚠️ Nhấn Random trước!";
+        return;
+    }
+
+    clearInterval(timer);
+
+    if (input === current.vi) {
+        correct++;
+        result.innerText = "✔ Đúng!";
+        result.style.color = "green";
+
+        document.getElementById("logo").innerText = "😄对了";
+    } else {
+        wrong++;
+        result.innerText = "❌ Sai! Đáp án: " + current.vi;
+        result.style.color = "red";
+
+        document.getElementById("logo").innerText = "😡 不对";
+    }
+
+    document.getElementById("correct").innerText = correct;
+    document.getElementById("wrong").innerText = wrong;
+
+    canRandom = true;
+}
+</script>
+
+</body>
+</html>

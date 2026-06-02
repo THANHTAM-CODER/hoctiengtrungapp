@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản Lý Từ Vựng</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📖 Quản Lý Từ Vựng</h1>
+    <h2 class="slogan">汉语不太难</h2>
+
+    <a href="index.html">
+        <button>🎯 Học Từ Vựng</button>
+    </a>
+
+    <div class="card">
+
+        <textarea
+            id="bulkInput"
+            placeholder="Nhập theo định dạng: chữ hán - nghĩa - pinyin
+你好 - xin chào - nǐ hǎo
+谢谢 - cảm ơn - xiè xie"
+            rows="6"
+        ></textarea>
+
+        <button onclick="addWords()">➕ Thêm nhiều từ</button>
+        <button onclick="exportExcel()">📤 Xuất Excel</button>
+
+        <hr>
+
+        <h3>📋 Danh sách từ vựng</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Chữ Hán</th>
+                    <th>Nghĩa</th>
+                    <th>Pinyin</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="wordList"></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<!-- Excel library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
