@@ -28,33 +28,34 @@ body {
     position: relative;
     z-index: 1;
 
-    width: 450px;
+    width: 700px;
+    max-width: 95%;
+
     padding: 25px;
 
-    border-radius: 20px;
+    border-radius: 25px;
 
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
-    border: 1px solid rgba(255,255,255,0.2);
-
-    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
 
     text-align: center;
-    color: white;
+    color: #333;
 }
 
 /* tiêu đề */
 h2 {
     margin-bottom: 5px;
-    font-size: 26px;
+    font-size: 32px;
+    color: #1d4ed8;
 }
 
 h3 {
     margin-top: 5px;
-    font-size: 16px;
-    color: #ffd700;
+    font-size: 18px;
+    color: #dc2626;
 }
 
 /* input */
@@ -85,12 +86,12 @@ button {
 }
 
 #searchBtn {
-    background: #00c6ff;
+    background: #2563eb;
     color: white;
 }
 
 #toggleBtn {
-    background: #ff6b6b;
+    background: #dc2626;
     color: white;
 }
 
@@ -102,6 +103,9 @@ button:hover {
 #result {
     margin-top: 20px;
     text-align: left;
+
+    max-height: 450px;
+    overflow-y: auto;
 }
 
 /* header bảng */
@@ -110,11 +114,13 @@ button:hover {
     grid-template-columns: 1fr 1fr 1fr;
 
     padding: 10px;
-    background: rgba(255,255,255,0.25);
+
+    background: #2563eb;
 
     border-radius: 10px;
 
     font-weight: bold;
+    color: white;
 }
 
 /* item */
@@ -125,15 +131,26 @@ button:hover {
     padding: 10px;
     margin-top: 8px;
 
-    background: rgba(255,255,255,0.15);
+    background: rgba(37,99,235,0.08);
+
     border-radius: 10px;
 
     transition: 0.3s;
+
+    color: #333;
 }
 
 .item:hover {
-    background: rgba(255,255,255,0.3);
+    background: rgba(37,99,235,0.15);
     transform: translateX(5px);
+}
+#deleteBtn {
+    background: #666;
+    color: white;
+}
+#backBtn {
+    background: #16a34a;
+    color: white;
 }
 
 /* mode text */
@@ -142,27 +159,41 @@ button:hover {
 }
 
 /* responsive */
-@media(max-width:500px){
+@media(max-width:768px){
     .container {
-        width: 90%;
+        width: 95%;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    input {
+        width: 95%;
     }
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
-
+<!-- tiêu đề -->
 <h2>🔍 Tìm kiếm tiếng Trung</h2>
 <h3 id="modeText">🔤 Đang tìm: Chữ Hán</h3>
 
 <input type="text" id="searchInput" placeholder="Nhập từ cần tìm...">
 
 <br>
-
+<!-- các button -->
 <button id="searchBtn" onclick="searchWord()">Tìm kiếm</button>
 <button id="toggleBtn" onclick="toggleMode()">Chuyển sang: Nghĩa</button>
+<button id="deleteBtn" onclick="clearSearch()">🗑 Xóa</button>
+<button id="backBtn" onclick="goHome()">🏠 Trang Chủ</button>
 
 <div id="result"></div>
 
@@ -171,7 +202,9 @@ button:hover {
 <script src="sentences2.js"></script>
 
 <script>
+
 let searchMode = "hanzi";
+
 
 function toggleMode() {
     let btn = document.getElementById("toggleBtn");
@@ -188,6 +221,7 @@ function toggleMode() {
     }
 }
 
+/* hàm tìm kiếm */
 function searchWord() {
     let input = document.getElementById("searchInput").value.trim();
     let resultDiv = document.getElementById("result");
@@ -195,7 +229,7 @@ function searchWord() {
     resultDiv.innerHTML = "";
 
     if (!input) {
-        resultDiv.innerHTML = "⚠️ Vui lòng nhập từ!";
+        resultDiv.innerHTML = "⚠️ Vui lòng nhập từ cần tìm !";
         return;
     }
 
@@ -208,7 +242,7 @@ function searchWord() {
     });
 
     if (found.length === 0) {
-        resultDiv.innerHTML = "❌ Không tìm thấy!";
+        resultDiv.innerHTML = "❌ Không tìm thấy từ cần tìm !";
         return;
     }
 
@@ -229,6 +263,15 @@ function searchWord() {
             </div>
         `;
     });
+}
+/* hàm xóa và input kết quả*/
+function clearSearch() {
+    document.getElementById("searchInput").value = "";
+    document.getElementById("result").innerHTML = "";
+}
+/* hàm quay về trang chủ*/
+function goHome() {
+    window.location.href = "index.html";
 }
 </script>
 

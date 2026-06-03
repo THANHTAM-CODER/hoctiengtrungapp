@@ -25,7 +25,10 @@
 
         <p>📖 Nhấn Random để lấy từ mới</p>
         <p>📖 Nhập nghĩa tiếng Việt</p>
-        <p>📖 Nhấn Kiểm Tra để kiểm tra</p>
+        <p>📖 Nhấn Kiểm Tra để kiểm tra đúng sai</p>
+        <p>📖 Từ nào là số thì phải ghi là: số ...</p>
+        <p>📖 Từ nào 2-3 nghĩa trở lên phải điền đủ ít nhất 2 nghĩa mới tính là đúng và cách nhau bởi dấu phẩy</p>
+        <p>📖 Ví dụ: 好 là khỏe,đẹp,ok</p>
 
         <button onclick="closeGuide()">⬅ Quay về</button>
     </div>
@@ -36,10 +39,10 @@
     <h1>📖 学汉语</h1>
     <h2 class="slogan">汉语不太难</h2>
 
-    <a href="page2.html"><button>📄 Ghép Câu</button></a>
-    <a href="words.html"><button>➕ Quản lý từ vựng</button></a>
 
     <div class="card">
+        <a href="page2.html"><button>📄 Ghép Câu</button></a>
+        <a href="words.html"><button>➕ Quản lý từ vựng</button></a>
 
         <h2 id="hanzi">Nhấn Random</h2>
 
@@ -67,6 +70,9 @@
 </div>
 
 <!-- 📌 SCRIPT -->
+<script src="sentences2.js"></script>
+<audio id="soundCorrect" src="concertD.mp3"></audio>
+<audio id="soundWrong" src="concertS.mp3"></audio>
 <script src="script.js"></script>
 
 </body>

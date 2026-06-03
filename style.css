@@ -182,7 +182,7 @@ tbody tr:hover{
 
 #hanzi{
     font-size: 48px;
-    color: #1d4ed8;
+    color: black;
     margin-bottom: 20px;
 }
 
@@ -279,3 +279,4 @@ a{
     z-index: 10000;
     position: relative;
 }
+

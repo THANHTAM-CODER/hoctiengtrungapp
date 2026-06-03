@@ -1,4 +1,4 @@
-let words = [];
+let words = sentences2;
 let currentWord = null;
 let correct = 0;
 let wrong = 0;
@@ -101,23 +101,78 @@ function checkAnswer() {
 
     if (!currentWord || answered) return;
 
-    const ans = document.getElementById("answer").value.trim().toLowerCase();
-    const meaning = currentWord.meaning.trim().toLowerCase();
+    const ans = document.getElementById("answer").value
+        .trim()
+        .toLowerCase();
 
-    if (ans === meaning) {
+    const meanings = currentWord.meaning
+        .toLowerCase()
+        .split(",")
+        .map(item => item.trim());
+
+    const answers = ans
+        .split(",")
+        .map(item => item.trim())
+        .filter(item => item !== "");
+
+    let isCorrect = false;
+
+    // Nếu từ có từ 3 nghĩa trở lên
+    if (meanings.length >= 3) {
+
+        let count = 0;
+
+        answers.forEach(a => {
+            if (meanings.includes(a)) {
+                count++;
+            }
+        });
+
+        isCorrect = count >= 2;
+
+    } else {
+
+        // Từ có 1 hoặc 2 nghĩa
+        isCorrect = answers.some(a => meanings.includes(a));
+    }
+
+    if (isCorrect) {
 
         correct++;
-        document.getElementById("result").innerText = "✅ Đúng!";
+        document.getElementById("correct").innerText = correct;
+
+        document.getElementById("result").innerText =
+            "✅ Đúng!";
+
         document.getElementById("result").style.color = "green";
+        document.getElementById("soundCorrect").currentTime = 0;
+        document.getElementById("soundCorrect").play();
+
         answered = true;
 
     } else {
 
         wrong++;
+        document.getElementById("wrong").innerText = wrong;
+
         document.getElementById("result").innerText =
-            "❌ Sai: " + currentWord.meaning + " | " + (currentWord.pinyin || "");
+            "❌ Sai! Đáp án: " +
+            currentWord.meaning +
+            " | " +
+            (currentWord.pinyin || "");
 
         document.getElementById("result").style.color = "red";
+        document.getElementById("soundWrong").currentTime = 0;
+        document.getElementById("soundWrong").play();
     }
+}
+/**************** GUIDE MODAL ****************/
+
+function openGuide() {
+    document.getElementById("guideModal").style.display = "flex";
+}
+
+function closeGuide() {
+    document.getElementById("guideModal").style.display = "none";
 }
 
