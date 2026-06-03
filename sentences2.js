@@ -91,5 +91,5 @@ let sentences2 = [
         hanzi: "十",
         pinyin: "shí",
         meaning: "số 10"
-    }
+    },
 ];
