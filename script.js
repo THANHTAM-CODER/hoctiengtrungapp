@@ -8,10 +8,6 @@ let answered = false;
 
 function saveWords() {
     localStorage.setItem("words", JSON.stringify(words));
-
-    if (typeof saveRemoteWords === "function") {
-        saveRemoteWords(words);
-    }
 }
 
 /**************** ADD WORDS ****************/
@@ -125,27 +121,3 @@ function checkAnswer() {
     }
 }
 
-/**************** FIREBASE SYNC ****************/
-
-async function loadSharedWords() {
-    const localData = localStorage.getItem("words");
-
-    if (localData) {
-        words = JSON.parse(localData);
-    }
-
-    if (typeof initFirebase === "function") {
-        initFirebase();
-        listenRemoteWords(remoteWords => {
-            if (Array.isArray(remoteWords) && remoteWords.length > 0) {
-                words = remoteWords;
-                localStorage.setItem("words", JSON.stringify(words));
-                renderWords();
-            }
-        });
-    }
-
-    renderWords();
-}
-
-window.addEventListener("load", loadSharedWords);

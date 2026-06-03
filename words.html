@@ -1,143 +1,234 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quản Lý Từ Vựng</title>
 <link rel="stylesheet" href="style.css">
+<title>Tìm kiếm tiếng Trung</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: url("bg-china2.png") no-repeat center center/cover;
+    position: relative;
+    overflow: hidden;
+}
+
+/* lớp tối + blur nền */
+
+
+/* card chính */
+.container {
+    position: relative;
+    z-index: 1;
+
+    width: 450px;
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255,255,255,0.2);
+
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+
+    text-align: center;
+    color: white;
+}
+
+/* tiêu đề */
+h2 {
+    margin-bottom: 5px;
+    font-size: 26px;
+}
+
+h3 {
+    margin-top: 5px;
+    font-size: 16px;
+    color: #ffd700;
+}
+
+/* input */
+input {
+    width: 90%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+
+    margin-top: 15px;
+
+    font-size: 15px;
+}
+
+/* button */
+button {
+    margin-top: 12px;
+    padding: 10px 15px;
+
+    border: none;
+    border-radius: 12px;
+
+    cursor: pointer;
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+#searchBtn {
+    background: #00c6ff;
+    color: white;
+}
+
+#toggleBtn {
+    background: #ff6b6b;
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* bảng kết quả */
+#result {
+    margin-top: 20px;
+    text-align: left;
+}
+
+/* header bảng */
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    padding: 10px;
+    background: rgba(255,255,255,0.25);
+
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+
+/* item */
+.item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    padding: 10px;
+    margin-top: 8px;
+
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+.item:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateX(5px);
+}
+
+/* mode text */
+#modeText {
+    margin: 5px 0;
+}
+
+/* responsive */
+@media(max-width:500px){
+    .container {
+        width: 90%;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>📖 Quản Lý Từ Vựng</h1>
-    <h2 class="slogan">汉语不太难</h2>
+<h2>🔍 Tìm kiếm tiếng Trung</h2>
+<h3 id="modeText">🔤 Đang tìm: Chữ Hán</h3>
 
-    <a href="index.html">
-        <button>🎯 Học Từ Vựng</button>
-    </a>
+<input type="text" id="searchInput" placeholder="Nhập từ cần tìm...">
 
-    <div class="card">
+<br>
 
-        <textarea id="bulkInput"
-            placeholder="Nhập: chữ hán - nghĩa - pinyin
-你好 - xin chào - nǐ hǎo
-谢谢 - cảm ơn - xiè xie"
-            rows="6"></textarea>
+<button id="searchBtn" onclick="searchWord()">Tìm kiếm</button>
+<button id="toggleBtn" onclick="toggleMode()">Chuyển sang: Nghĩa</button>
 
-        <button onclick="addWords()">➕ Thêm nhiều từ</button>
-
-        <hr>
-
-        <h3>📋 Danh sách từ vựng</h3>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Chữ Hán</th>
-                    <th>Nghĩa</th>
-                    <th>Pinyin</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody id="wordList"></tbody>
-        </table>
-
-    </div>
+<div id="result"></div>
 
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="firebase-config.js"></script>
+<script src="sentences2.js"></script>
 
 <script>
-let words = [];
+let searchMode = "hanzi";
 
-/* LOAD */
-window.onload = async function () {
-    const data = localStorage.getItem("words");
-    if (data) words = JSON.parse(data);
+function toggleMode() {
+    let btn = document.getElementById("toggleBtn");
+    let modeText = document.getElementById("modeText");
 
-    if (typeof initFirebase === "function") {
-        initFirebase();
-        listenRemoteWords(remoteWords => {
-            if (Array.isArray(remoteWords) && remoteWords.length > 0) {
-                words = remoteWords;
-                saveWords();
-                renderWords();
-            }
-        });
-    }
-
-    renderWords();
-};
-
-/* SAVE */
-function saveWords() {
-    localStorage.setItem("words", JSON.stringify(words));
-
-    if (typeof saveRemoteWords === "function") {
-        saveRemoteWords(words);
+    if (searchMode === "hanzi") {
+        searchMode = "meaning";
+        btn.innerText = "Chuyển sang: Chữ Hán";
+        modeText.innerText = "📖 Đang tìm: Nghĩa";
+    } else {
+        searchMode = "hanzi";
+        btn.innerText = "Chuyển sang: Nghĩa";
+        modeText.innerText = "🔤 Đang tìm: Chữ Hán";
     }
 }
 
-/* ADD WORDS */
-function addWords() {
+function searchWord() {
+    let input = document.getElementById("searchInput").value.trim();
+    let resultDiv = document.getElementById("result");
 
-    const input = document.getElementById("bulkInput");
-    if (!input) return;
+    resultDiv.innerHTML = "";
 
-    const lines = input.value.trim().split("\n");
+    if (!input) {
+        resultDiv.innerHTML = "⚠️ Vui lòng nhập từ!";
+        return;
+    }
 
-    lines.forEach(line => {
-
-        const parts = line.split("-");
-        if (parts.length < 3) return;
-
-        const hanzi = parts[0].trim();
-        const meaning = parts[1].trim();
-        const pinyin = parts[2].trim();
-
-        if (hanzi && meaning) {
-            words.push({ hanzi, meaning, pinyin });
+    let found = sentences2.filter(item => {
+        if (searchMode === "hanzi") {
+            return item.hanzi === input;
+        } else {
+            return item.meaning === input;
         }
     });
 
-    input.value = "";
+    if (found.length === 0) {
+        resultDiv.innerHTML = "❌ Không tìm thấy!";
+        return;
+    }
 
-    saveWords();
-    renderWords();
-}
+    resultDiv.innerHTML += `
+        <div class="header">
+            <div>Hán tự</div>
+            <div>Nghĩa</div>
+            <div>Pinyin</div>
+        </div>
+    `;
 
-/* RENDER */
-function renderWords() {
-
-    const list = document.getElementById("wordList");
-    list.innerHTML = "";
-
-    words.forEach((w, i) => {
-
-        list.innerHTML += `
-            <tr>
-                <td>${i + 1}</td>
-                <td>${w.hanzi}</td>
-                <td>${w.meaning}</td>
-                <td>${w.pinyin}</td>
-                <td><button onclick="deleteWord(${i})">❌</button></td>
-            </tr>
+    found.forEach(item => {
+        resultDiv.innerHTML += `
+            <div class="item">
+                <div>${item.hanzi}</div>
+                <div>${item.meaning}</div>
+                <div>${item.pinyin}</div>
+            </div>
         `;
     });
-}
-
-/* DELETE */
-function deleteWord(i) {
-    words.splice(i, 1);
-    saveWords();
-    renderWords();
 }
 </script>
 
