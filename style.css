@@ -1,0 +1,283 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Nền toàn màn hình + hiệu ứng chuyển động */
+body::before{
+    content: "";
+    position: fixed;
+    top: -5%;
+    left: -5%;
+
+    width: 110%;
+    height: 110%;
+
+    background-image: url("bg-china2.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    opacity: 1;
+
+    z-index: -2;
+
+    animation: backgroundFloat 20s ease-in-out infinite;
+}
+
+/* Lớp phủ tối nhẹ */
+body::after{
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,0.15);
+
+    z-index: -1;
+}
+
+.container{
+    width: 100%;
+    margin-top: 40px;
+    text-align: center;
+
+    position: relative;
+    z-index: 1;
+}
+
+h1{
+    color: white;
+    font-size: 48px;
+
+    text-shadow:
+        0 4px 20px rgba(0,0,0,0.8);
+
+    margin-bottom: 20px;
+}
+
+.slogan{
+    color: #ff4d4d;
+
+    font-size: 28px;
+    font-weight: bold;
+
+    letter-spacing: 6px;
+
+    margin-top: -10px;
+    margin-bottom: 25px;
+
+    text-shadow:
+        0 2px 15px rgba(0,0,0,0.8);
+}
+
+.card{
+    background: rgba(255,255,255,0.88);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    width: 700px;
+    max-width: 90%;
+
+    margin: auto;
+    padding: 25px;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.35);
+}
+
+input,
+textarea{
+    width: 80%;
+
+    padding: 12px;
+    margin: 10px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    font-size: 16px;
+}
+
+button{
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background: #2563eb;
+    color: white;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+button:hover{
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.top-buttons{
+    margin-bottom: 20px;
+}
+
+.top-buttons button{
+    margin: 5px;
+}
+
+.score{
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+
+    color: white;
+
+    text-shadow:
+        0 2px 10px rgba(0,0,0,0.8);
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    background: rgba(255,255,255,0.95);
+}
+
+th,
+td{
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th{
+    background: #2563eb;
+    color: white;
+}
+
+tbody tr:nth-child(even){
+    background: #f8f8f8;
+}
+
+tbody tr:hover{
+    background: #dbeafe;
+}
+
+#hanzi{
+    font-size: 48px;
+    color: #1d4ed8;
+    margin-bottom: 20px;
+}
+
+#result{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+a{
+    text-decoration: none;
+}
+
+@keyframes backgroundFloat{
+
+    0%{
+        transform: scale(1) translate(0px, 0px);
+    }
+
+    25%{
+        transform: scale(1.05) translate(-10px, -5px);
+    }
+
+    50%{
+        transform: scale(1.08) translate(0px, -10px);
+    }
+
+    75%{
+        transform: scale(1.05) translate(10px, -5px);
+    }
+
+    100%{
+        transform: scale(1) translate(0px, 0px);
+    }
+}
+
+@media(max-width:768px){
+
+    h1{
+        font-size: 32px;
+    }
+
+    .slogan{
+        font-size: 20px;
+        letter-spacing: 3px;
+    }
+
+    .card{
+        width: 95%;
+        padding: 15px;
+    }
+
+    input,
+    textarea{
+        width: 90%;
+    }
+
+    button{
+        margin-top: 8px;
+    }
+
+    table{
+        font-size: 14px;
+    }
+
+    #hanzi{
+        font-size: 36px;
+    }
+}
+.author{
+    margin-top: 20px;
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999; /* 👈 CÁI NÀY QUYẾT ĐỊNH */
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+
+    z-index: 10000;
+    position: relative;
+}
+

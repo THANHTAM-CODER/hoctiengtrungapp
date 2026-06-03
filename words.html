@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản Lý Từ Vựng</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📖 Quản Lý Từ Vựng</h1>
+    <h2 class="slogan">汉语不太难</h2>
+
+    <a href="index.html">
+        <button>🎯 Học Từ Vựng</button>
+    </a>
+
+    <div class="card">
+
+        <textarea id="bulkInput"
+            placeholder="Nhập: chữ hán - nghĩa - pinyin
+你好 - xin chào - nǐ hǎo
+谢谢 - cảm ơn - xiè xie"
+            rows="6"></textarea>
+
+        <button onclick="addWords()">➕ Thêm nhiều từ</button>
+
+        <hr>
+
+        <h3>📋 Danh sách từ vựng</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Chữ Hán</th>
+                    <th>Nghĩa</th>
+                    <th>Pinyin</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="wordList"></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script>
+let words = [];
+
+/* LOAD */
+window.onload = async function () {
+    const data = localStorage.getItem("words");
+    if (data) words = JSON.parse(data);
+
+    if (typeof initFirebase === "function") {
+        initFirebase();
+        listenRemoteWords(remoteWords => {
+            if (Array.isArray(remoteWords) && remoteWords.length > 0) {
+                words = remoteWords;
+                saveWords();
+                renderWords();
+            }
+        });
+    }
+
+    renderWords();
+};
+
+/* SAVE */
+function saveWords() {
+    localStorage.setItem("words", JSON.stringify(words));
+
+    if (typeof saveRemoteWords === "function") {
+        saveRemoteWords(words);
+    }
+}
+
+/* ADD WORDS */
+function addWords() {
+
+    const input = document.getElementById("bulkInput");
+    if (!input) return;
+
+    const lines = input.value.trim().split("\n");
+
+    lines.forEach(line => {
+
+        const parts = line.split("-");
+        if (parts.length < 3) return;
+
+        const hanzi = parts[0].trim();
+        const meaning = parts[1].trim();
+        const pinyin = parts[2].trim();
+
+        if (hanzi && meaning) {
+            words.push({ hanzi, meaning, pinyin });
+        }
+    });
+
+    input.value = "";
+
+    saveWords();
+    renderWords();
+}
+
+/* RENDER */
+function renderWords() {
+
+    const list = document.getElementById("wordList");
+    list.innerHTML = "";
+
+    words.forEach((w, i) => {
+
+        list.innerHTML += `
+            <tr>
+                <td>${i + 1}</td>
+                <td>${w.hanzi}</td>
+                <td>${w.meaning}</td>
+                <td>${w.pinyin}</td>
+                <td><button onclick="deleteWord(${i})">❌</button></td>
+            </tr>
+        `;
+    });
+}
+
+/* DELETE */
+function deleteWord(i) {
+    words.splice(i, 1);
+    saveWords();
+    renderWords();
+}
+</script>
+
+</body>
+</html>
