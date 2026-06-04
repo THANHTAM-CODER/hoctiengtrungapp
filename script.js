@@ -138,18 +138,20 @@ function checkAnswer() {
 
     if (isCorrect) {
 
-        correct++;
-        document.getElementById("correct").innerText = correct;
+    correct++;
+    document.getElementById("correct").innerText = correct;
 
-        document.getElementById("result").innerText =
-            "✅ Đúng!";
+    document.getElementById("result").innerText =
+        "✅ Đúng! Đáp án: " +
+        currentWord.meaning +
+        " | " +
+        (currentWord.pinyin || "");
 
-        document.getElementById("result").style.color = "green";
-        document.getElementById("soundCorrect").currentTime = 0;
-        document.getElementById("soundCorrect").play();
+    document.getElementById("result").style.color = "green";
+    document.getElementById("soundCorrect").currentTime = 0;
+    document.getElementById("soundCorrect").play();
 
-        answered = true;
-
+    answered = true;
     } else {
 
         wrong++;
@@ -164,6 +166,17 @@ function checkAnswer() {
         document.getElementById("result").style.color = "red";
         document.getElementById("soundWrong").currentTime = 0;
         document.getElementById("soundWrong").play();
+        if (wrong >= 5) {
+
+            setTimeout(() => {
+
+                alert("📚 Bạn nên học lại từ vựng!");
+
+                window.location.href = "words.html";
+
+            }, 1000);
+
+        }
     }
 }
 /**************** GUIDE MODAL ****************/

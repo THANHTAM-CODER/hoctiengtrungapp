@@ -111,7 +111,7 @@ button:hover {
 /* header bảng */
 .header {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 80px;
 
     padding: 10px;
 
@@ -126,7 +126,7 @@ button:hover {
 /* item */
 .item {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 80px;
 
     padding: 10px;
     margin-top: 8px;
@@ -224,7 +224,9 @@ function toggleMode() {
 }
 
 /* hàm tìm kiếm */
+/* hàm tìm kiếm */
 function searchWord() {
+
     let input = document.getElementById("searchInput").value.trim();
     let resultDiv = document.getElementById("result");
 
@@ -253,18 +255,40 @@ function searchWord() {
             <div>Hán tự</div>
             <div>Nghĩa</div>
             <div>Pinyin</div>
+            <div>🔊</div>
         </div>
     `;
 
     found.forEach(item => {
-        resultDiv.innerHTML += `
-            <div class="item">
-                <div>${item.hanzi}</div>
-                <div>${item.meaning}</div>
-                <div>${item.pinyin}</div>
+    resultDiv.innerHTML += `
+        <div class="item">
+            <div>${item.hanzi}</div>
+            <div>${item.meaning}</div>
+            <div>${item.pinyin}</div>
+
+            <div>
+                <button class="speak-btn"
+                    onclick="speakChinese('${item.hanzi}')">
+                    🔊
+                </button>
             </div>
-        `;
-    });
+        </div>
+    `;
+     }); 
+}
+
+/* đọc tiếng Trung */
+function speakChinese(text) {
+
+    speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    utterance.lang = "zh-CN";
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+
+    speechSynthesis.speak(utterance);
 }
 /* hàm xóa và input kết quả*/
 function clearSearch() {
@@ -279,6 +303,7 @@ function goHome() {
 function showHelp() {
     alert("Hướng dẫn sử dụng:\n1. Nhập từ cần tìm vào ô nhập liệu.\n2. Nhấn Enter hoặc click vào nút 'Tìm kiếm' để thực hiện tìm kiếm.\n3. Sử dụng nút 'Chuyển sang: Nghĩa' để chuyển đổi giữa tìm kiếm theo chữ Hán và nghĩa.\n4. Nhấn 'Xóa' để xóa nội dung tìm kiếm và kết quả.");
 }
+
 </script>
 
 </body>
