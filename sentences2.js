@@ -50,8 +50,8 @@ let sentences2 = [
     // ================= NGÀY THÁNG =================
     { hanzi: "日",       pinyin: "rì",            meaning: "ngày" },
     { hanzi: "号",       pinyin: "hào",           meaning: "ngày" },
-    { hanzi: "星期",     pinyin: "xīng qī",       meaning: "tuần / thứ" },
-    { hanzi: "天",       pinyin: "tiān",          meaning: "ngày (đếm)" },
+    { hanzi: "星期",     pinyin: "xīng qī",       meaning: "tuần,thứ" },
+    { hanzi: "天",       pinyin: "tiān",          meaning: "ngày" },
     { hanzi: "月",       pinyin: "yuè",           meaning: "tháng" },
     { hanzi: "年",       pinyin: "nián",          meaning: "năm" },
 
@@ -60,7 +60,7 @@ let sentences2 = [
     { hanzi: "分钟",     pinyin: "fēn zhōng",     meaning: "phút" },
     { hanzi: "半",       pinyin: "bàn",           meaning: "rưỡi" },
     { hanzi: "差",       pinyin: "chà",           meaning: "kém" },
-    { hanzi: "刻",       pinyin: "kè",            meaning: "khắc (15 phút)" },
+    { hanzi: "刻",       pinyin: "kè",            meaning: "khắc" },
     { hanzi: "几点",     pinyin: "jǐ diǎn",       meaning: "mấy giờ" },
     { hanzi: "现在",     pinyin: "xiàn zài",      meaning: "bây giờ" },
 
@@ -119,7 +119,7 @@ let sentences2 = [
     { hanzi: "和",       pinyin: "hé",            meaning: "và" },
     { hanzi: "喜欢",     pinyin: "xǐ huān",       meaning: "thích" },
     { hanzi: "结婚",     pinyin: "jié hūn",       meaning: "kết hôn" },
-    { hanzi: "还没有",   pinyin: "hái méi yǒu",   meaning: "vẫn chưa" },
+    { hanzi: "还没",   pinyin: "hái méi",       meaning: "vẫn chưa" },
     { hanzi: "个",       pinyin: "gè",            meaning: "lượng từ" },
     { hanzi: "碗",       pinyin: "wǎn",           meaning: "cái bát" },
     { hanzi: "些",       pinyin: "xiē",           meaning: "vài" },

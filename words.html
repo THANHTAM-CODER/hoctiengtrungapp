@@ -186,14 +186,16 @@ button:hover {
 <h2>🔍 Tìm kiếm tiếng Trung</h2>
 <h3 id="modeText">🔤 Đang tìm: Chữ Hán</h3>
 
-<input type="text" id="searchInput" placeholder="Nhập từ cần tìm...">
+<input type="text" id="searchInput" placeholder="Nhập từ cần tìm..." onkeydown="if(event.key==='Enter') searchWord()">
 
 <br>
 <!-- các button -->
 <button id="searchBtn" onclick="searchWord()">Tìm kiếm</button>
 <button id="toggleBtn" onclick="toggleMode()">Chuyển sang: Nghĩa</button>
 <button id="deleteBtn" onclick="clearSearch()">🗑 Xóa</button>
+
 <button id="backBtn" onclick="goHome()">🏠 Trang Chủ</button>
+<button id="helpBtn" onclick="showHelp()"> 📖 Hướng dẫn</button>
 
 <div id="result"></div>
 
@@ -272,6 +274,10 @@ function clearSearch() {
 /* hàm quay về trang chủ*/
 function goHome() {
     window.location.href = "index.html";
+}
+/* hàm hiển thị hướng dẫn */
+function showHelp() {
+    alert("Hướng dẫn sử dụng:\n1. Nhập từ cần tìm vào ô nhập liệu.\n2. Nhấn Enter hoặc click vào nút 'Tìm kiếm' để thực hiện tìm kiếm.\n3. Sử dụng nút 'Chuyển sang: Nghĩa' để chuyển đổi giữa tìm kiếm theo chữ Hán và nghĩa.\n4. Nhấn 'Xóa' để xóa nội dung tìm kiếm và kết quả.");
 }
 </script>
 
