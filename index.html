@@ -3,78 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>说 汉语</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
-<meta name="theme-color" content="#b22222">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="汉语">
-<link rel="stylesheet" href="style.css">
+<title>菜单</title>
+
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-family:Arial, sans-serif;
+
+    background:url("bg-china2.png") no-repeat center center/cover;
+}
+
+.container{
+
+    width:500px;
+    max-width:90%;
+
+    padding:30px;
+
+    text-align:center;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,0.9);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+
+h1{
+    color:#2563eb;
+    margin-bottom:30px;
+}
+
+.menu-btn{
+
+    width:100%;
+
+    padding:18px;
+
+    margin:10px 0;
+
+    border:none;
+    border-radius:15px;
+
+    font-size:20px;
+    font-weight:bold;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.menu-btn:hover{
+    transform:scale(1.05);
+}
+
+.words{
+    background:#16a34a;
+}
+
+.sentence{
+    background:#dc2626;
+}
+
+.random{
+    background:#2563eb;
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="petals"></div>
-
-<!-- 📘 HƯỚNG DẪN MODAL -->
-<div id="guideModal" class="modal">
-    <div class="modal-content">
-        <h2>📘 Hướng dẫn sử dụng</h2>
-
-        <p>📖 Nhấn Random để lấy từ mới</p>
-        <p>📖 Nhập nghĩa tiếng Việt</p>
-        <p>📖 Nhấn Kiểm Tra để kiểm tra đúng sai</p>
-        <p>📖 Từ nào là số thì phải ghi là: số ...</p>
-        <p>📖 Từ nào 2-3 nghĩa trở lên phải điền đủ ít nhất 2 nghĩa mới tính là đúng và cách nhau bởi dấu phẩy</p>
-        <p>📖 Ví dụ: 好 là khỏe,đẹp,ok</p>
-
-        <button onclick="closeGuide()">⬅ Quay về</button>
-    </div>
-</div>
-
 <div class="container">
 
-    <h1>📖 学汉语</h1>
-    <h2 class="slogan">汉语不太难</h2>
+    <h1>📚 学汉语</h1>
 
+    <button class="menu-btn words"
+        onclick="location.href='words.html'">
+        📚 Quản lý từ vựng
+    </button>
 
-    <div class="card">
-        <h2 id="hanzi">Nhấn Random</h2>
-        <input type="text" id="answer" placeholder="Nhập nghĩa tiếng Việt">
+    <button class="menu-btn sentence"
+        onclick="location.href='page2.html'">
+        📝 Ghép câu
+    </button>
 
-        <br>
-
-        <button onclick="checkAnswer()">Kiểm Tra</button>
-        <button onclick="randomWord()">Random Từ</button>
-        <button onclick="openGuide()">📘 Hướng dẫn</button>
-        <button onclick="location.href='wednumber.html'">
-    🏠 Menu
-</button>
-    
-
-
-        <p id="result"></p>
-
-    </div>
-
-    <div class="score">
-        <p>✅ Đúng: <span id="correct">0</span></p>
-        <p>❌ Sai: <span id="wrong">0</span></p>
-
-        <div class="author">
-            Coder by: Nguyễn Thành Tâm
-        </div>
-    </div>
+    <button class="menu-btn random"
+        onclick="location.href='random.html'">
+        🎲 Random Từ
+    </button>
 
 </div>
-
-<!-- 📌 SCRIPT -->
-<script src="sentences2.js"></script>
-<audio id="soundCorrect" src="concertD.mp3"></audio>
-<audio id="soundWrong" src="concertS.mp3"></audio>
-<script src="script.js"></script>
 
 </body>
 </html>
