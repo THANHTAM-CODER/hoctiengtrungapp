@@ -108,7 +108,7 @@ let sentences2 = [
     { hanzi: "酒",       pinyin: "jiǔ",           meaning: "rượu" },
 
     // ================= KHÁC =================
-    { hanzi: "好",       pinyin: "hǎo",           meaning: "tốt / khỏe" },
+    { hanzi: "好",       pinyin: "hǎo",           meaning: "tốt,khỏe,ok" },
     { hanzi: "不",       pinyin: "bù",            meaning: "không" },
     { hanzi: "吗",       pinyin: "ma",            meaning: "từ hỏi" },
     { hanzi: "很",       pinyin: "hěn",           meaning: "rất" },
@@ -137,5 +137,7 @@ let sentences2 = [
     { hanzi: "身体",     pinyin: "shēn tǐ",       meaning: "sức khỏe" },
     { hanzi: "杂志",     pinyin: "zá zhì",        meaning: "tạp chí" },
     { hanzi: "发音",     pinyin: "fā yīn",        meaning: "phát âm" },
-    { hanzi: "语言",     pinyin: "yǔ yán",        meaning: "ngôn ngữ" }
+    { hanzi: "语言",     pinyin: "yǔ yán",        meaning: "ngôn ngữ" },
+    { hanzi: "汉语",     pinyin: "hànyǔ",       meaning: "tiếng hán" },
+    { hanzi: "汉字",     pinyin: "han zi",        meaning: "chữ hán" }
 ];
