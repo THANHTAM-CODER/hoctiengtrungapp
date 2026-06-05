@@ -26,6 +26,9 @@ let sentences2 = [
     { hanzi: "老师",     pinyin: "lǎo shī",       meaning: "thầy giáo" },
     { hanzi: "老公",     pinyin: "lǎo gōng",      meaning: "chồng" },
     { hanzi: "老婆",     pinyin: "lǎo pó",        meaning: "vợ" },
+    { hanzi: "男朋友",   pinyin: "nán péng you",  meaning: "bạn trai (tình yêu nam nữ)" },
+    { hanzi: "女朋友",   pinyin: "nǚ péng you",   meaning: "bạn gái ( tình yêu nam nữ)" },
+    { hanzi: "朋友",     pinyin: "péng you",      meaning: "bạn bè" },
 
     // ================= SỐ =================
     { hanzi: "一",       pinyin: "yī",            meaning: "số 1" },
@@ -56,7 +59,7 @@ let sentences2 = [
     { hanzi: "年",       pinyin: "nián",          meaning: "năm" },
 
     // ================= THỜI GIAN NÂNG CAO =================
-    { hanzi: "点",       pinyin: "diǎn",      meaning: "giờ" },
+    { hanzi: "点",       pinyin: "diǎn",          meaning: "giờ" },
     { hanzi: "分钟",     pinyin: "fēn zhōng",     meaning: "phút" },
     { hanzi: "半",       pinyin: "bàn",           meaning: "rưỡi" },
     { hanzi: "差",       pinyin: "chà",           meaning: "kém" },
@@ -112,16 +115,16 @@ let sentences2 = [
     // ================= KHÁC =================
     { hanzi: "好",       pinyin: "hǎo",           meaning: "tốt,khỏe,ok" },
     { hanzi: "不",       pinyin: "bù",            meaning: "không" },
-    { hanzi: "吗",       pinyin: "ma",            meaning: "từ hỏi" },
+    { hanzi: "吗",       pinyin: "ma",            meaning: "không（dùng để hỏi)" },
     { hanzi: "很",       pinyin: "hěn",           meaning: "rất" },
     { hanzi: "对",       pinyin: "duì",           meaning: "đúng" },
     { hanzi: "难",       pinyin: "nán",           meaning: "khó" },
     { hanzi: "忙",       pinyin: "máng",          meaning: "bận" },
-    { hanzi: "的",       pinyin: "de",            meaning: "của" },
+    { hanzi: "的",       pinyin: "de",            meaning: "của" }, 
     { hanzi: "和",       pinyin: "hé",            meaning: "và" },
     { hanzi: "喜欢",     pinyin: "xǐ huān",       meaning: "thích" },
     { hanzi: "结婚",     pinyin: "jié hūn",       meaning: "kết hôn" },
-    { hanzi: "还没",   pinyin: "hái méi",       meaning: "vẫn chưa" },
+    { hanzi: "还没",     pinyin: "hái méi",       meaning: "vẫn chưa" },
     { hanzi: "个",       pinyin: "gè",            meaning: "lượng từ" },
     { hanzi: "碗",       pinyin: "wǎn",           meaning: "cái bát" },
     { hanzi: "些",       pinyin: "xiē",           meaning: "vài" },
@@ -135,15 +138,33 @@ let sentences2 = [
     { hanzi: "饺子",     pinyin: "jiǎo zi",       meaning: "sủi cảo" },
     { hanzi: "面条",     pinyin: "miàn tiáo",     meaning: "mì sợi" },
     { hanzi: "是",       pinyin: "shi",           meaning: "là" },
-    
 
     // ================= BỔ SUNG =================
     { hanzi: "身体",     pinyin: "shēn tǐ",       meaning: "sức khỏe" },
     { hanzi: "杂志",     pinyin: "zá zhì",        meaning: "tạp chí" },
     { hanzi: "发音",     pinyin: "fā yīn",        meaning: "phát âm" },
     { hanzi: "语言",     pinyin: "yǔ yán",        meaning: "ngôn ngữ" },
-    { hanzi: "汉语",     pinyin: "hànyǔ",       meaning: "tiếng hán" },
-    { hanzi: "汉字",     pinyin: "han zi",        meaning: "chữ hán" }
+    { hanzi: "汉语",     pinyin: "hànyǔ",         meaning: "tiếng hán" },
+    { hanzi: "汉字",     pinyin: "han zi",        meaning: "chữ hán" },
+    { hanzi: "吧",       pinyin: "ba",          meaning: "lượng từ" },
+    { hanzi: "买",       pinyin: "mǎi",          meaning: "mua" },
+    { hanzi: "卖",       pinyin: "mài",          meaning: "bán" },
+    { hanzi: "水果",     pinyin: "shuǐguǒ",      meaning: "trái cây" },
+    { hanzi: "苹果",     pinyin: "píngguǒ",      meaning: "táo" },
+    { hanzi: "一斤",     pinyin: "yī jīn",       meaning: "1 cân (500g - đơn vị Trung Quốc)" },
+    { hanzi: "一公斤",   pinyin: "yī gōngjīn",   meaning: "1 kg (1000g)" },
+    { hanzi: "多少",     pinyin: "duōshao",      meaning: "bao nhiêu" },
+    { hanzi: "很多",     pinyin: "hěn duō",      meaning: "nhiều" },
+    { hanzi: "很少",     pinyin: "hěn shǎo",      meaning: "ít" },
+    { hanzi: "贵",       pinyin: "guì",          meaning: "đắt" },
+    { hanzi: "便宜",     pinyin: "piányi",       meaning: "rẻ" },
+
+    // ================= TIỀN TỆ =================
+    { hanzi: "块",       pinyin: "kuài",         meaning: "tệ (tiền tệ văn nói: nhân dân tệ RMB)" },
+    { hanzi: "元",       pinyin: "yuán",         meaning: "tệ (tiền tệ văn viết: RMB chính thức)" },
+    { hanzi: "角",       pinyin: "jiǎo",         meaning: "hào (văn viết: 1/10 yuan)" },
+    { hanzi: "毛",       pinyin: "máo",          meaning: "hào (văn nói: 1/10 yuan)" },
+    { hanzi: "分",       pinyin: "fēn",          meaning: "xu (1/100 yuan)" }
 ];    
 // add lên github
 /*git add . 
