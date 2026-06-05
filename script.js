@@ -139,8 +139,9 @@ function checkAnswer() {
     if (isCorrect) {
 
     correct++;
+    localStorage.setItem("correct", correct);
     document.getElementById("correct").innerText = correct;
-
+    updateLevel(); // 🔥 cập nhật cấp độ
     document.getElementById("result").innerText =
         "✅ Đúng! Đáp án: " +
         currentWord.meaning +
@@ -214,6 +215,82 @@ function createMeaningSelector(word) {
                     `<option value="${m}">${m}</option>`
                 ).join("")}
             </select>
+        </span>
+    `; 
+}
+
+/**************** TEXT TO SPEECH FIX ****************/
+
+
+
+function speak(text, lang, btn){
+    if(!text) return;
+
+    speechSynthesis.cancel();
+
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang;
+    utter.rate = 1;
+
+    // 🔥 bật hiệu ứng
+    if(btn){
+        btn.classList.add("speaking");
+    }
+
+    utter.onend = () => {
+        if(btn){
+            btn.classList.remove("speaking");
+        }
+    };
+
+    speechSynthesis.speak(utter);
+}
+
+/* 🔊 tiếng Trung */
+function readChinese(event){
+    const text = document.getElementById("inputText").value;
+    const btn = event?.target;
+
+    speak(text, "zh-CN", btn);
+}
+
+/* 📖 tiếng Việt */
+function readVietnamese(event){
+    const text = document.getElementById("result").innerText;
+    const btn = event?.target;
+
+    speak(text, "vi-VN", btn);
+}
+
+/**************** BỎ NGOẶC ****************/
+function cleanMeaning(text){
+    if(!text) return "";
+
+    return text
+        .split(",")
+        .map(item => item.replace(/\s*\(.*?\)\s*/g, "")) // bỏ toàn bộ (....)
+        .map(item => item.trim())
+        .filter(item => item.length > 0)
+        .join(", ");
+}
+function createMeaningBox(word){
+
+    let meanings = word.meaning.split(",");
+
+    let id = "m" + Math.random().toString(36).substr(2,9);
+
+    return `
+        <span class="multi-box">
+            <span id="${id}">${meanings[0]}</span>
+            <span class="dot" onclick="toggleMeaning('${id}_box')">•</span>
+
+            <div id="${id}_box" class="popup-meanings">
+                ${meanings.map(m => `
+                    <div onclick="selectMeaning('${id}','${id}_box','${m}')">
+                        ${m}
+                    </div>
+                `).join("")}
+            </div>
         </span>
     `;
 }

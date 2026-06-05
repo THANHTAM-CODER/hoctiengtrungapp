@@ -14,46 +14,37 @@
 body{
     margin:0;
     font-family:Arial, sans-serif;
-
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-
     position:relative;
     overflow:hidden;
 }
 
-/* NỀN CHUNG TOÀN WEB */
 body::before{
     content:"";
     position:fixed;
     inset:0;
-
     background-image: var(--bg-image);
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
-
     z-index:-2;
 }
 
-/* CARD */
 .container{
     background:rgba(255,255,255,0.9);
     backdrop-filter:blur(10px);
     -webkit-backdrop-filter:blur(10px);
-
     padding:30px;
     border-radius:25px;
     width:600px;
     max-width:90%;
-
     text-align:center;
     box-shadow:0 15px 40px rgba(0,0,0,0.3);
 }
 
-/* input */
 textarea{
     width:90%;
     height:160px;
@@ -63,42 +54,39 @@ textarea{
     border:1px solid #ccc;
 }
 
-/* kết quả */
 .result{
     margin-top:20px;
     background:white;
-    border:1px solid #ddd;
     border-radius:10px;
     padding:15px;
     font-size:24px;
-    color:#333;
     min-height:60px;
     text-align:left;
     line-height:1.8;
 }
 
-/* popup */
-.popup{
-    position:absolute;
-    background:white;
-    border:1px solid #ccc;
-    border-radius:10px;
-    padding:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-    display:none;
-    z-index:999;
-}
-
-.popup div{
-    padding:5px;
+.tts-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:12px 18px;
+    margin:10px 5px;
+    font-weight:bold;
     cursor:pointer;
 }
 
-.popup div:hover{
-    background:#eee;
+.tts-btn.speaking{
+    box-shadow:0 0 15px #2563eb;
+    transform:scale(1.05);
+    animation:glow 1s infinite alternate;
 }
 
-/* home button */
+@keyframes glow{
+    from{box-shadow:0 0 5px #2563eb;}
+    to{box-shadow:0 0 25px #2563eb;}
+}
+
 a{
     display:inline-block;
     margin-top:20px;
@@ -107,12 +95,6 @@ a{
     color:white;
     text-decoration:none;
     border-radius:10px;
-    font-weight:bold;
-    transition:0.3s;
-}
-
-a:hover{
-    transform:scale(1.05);
 }
 </style>
 </head>
@@ -123,56 +105,45 @@ a:hover{
 
     <h1>✍️ Dịch Hán Việt</h1>
 
-    <textarea id="inputText"
-        placeholder="Nhập đoạn văn..."
-        oninput="translateText()"></textarea>
+    <textarea id="inputText" placeholder="Nhập đoạn văn..." oninput="translateText()"></textarea>
 
-    <div class="result" id="result">kết quả</div>
+    <div style="margin-top:15px;">
+        <button class="tts-btn" onclick="readChinese(event)">🔊 Đọc tiếng Trung</button>
+        <button class="tts-btn" onclick="readVietnamese(event)">📖 Đọc nghĩa</button>
+    </div>
 
-    <a href="index.html">🏠 Quay lại trang chủ</a>
+    <div class="result" id="result">...</div>
 
+    <a href="menu.html">🏠 Trang chủ</a>
 </div>
-
-<!-- popup -->
-<div id="popup" class="popup"></div>
 
 <script src="sentences2.js"></script>
 
 <script>
 
-function showPopup(x, y, meanings, callback){
+/* ================== XOÁ NGOẶC TOÀN BỘ DATA ================== */
+function cleanMeaning(text){
+    if(!text) return "";
 
-    const popup = document.getElementById("popup");
-    popup.innerHTML = "";
-
-    meanings.forEach(m=>{
-        const div = document.createElement("div");
-        div.innerText = m;
-
-        div.onclick = ()=>{
-            callback(m);
-            popup.style.display = "none";
-        };
-
-        popup.appendChild(div);
-    });
-
-    popup.style.left = x + "px";
-    popup.style.top = y + "px";
-    popup.style.display = "block";
+    return text
+        .split(",")
+        .map(m => m.replace(/\s*\(.*?\)\s*/g, "").trim())
+        .filter(Boolean)
+        .join(",");
 }
 
-document.addEventListener("click", ()=>{
-    document.getElementById("popup").style.display = "none";
+/* làm sạch toàn bộ dữ liệu 1 lần */
+sentences2.forEach(w => {
+    w.meaning = cleanMeaning(w.meaning);
 });
 
-/* translate */
-function translateText() {
+/* ================== TRANSLATE ================== */
+function translateText(){
 
     const text = document.getElementById("inputText").value.trim();
     const resultDiv = document.getElementById("result");
 
-    if (!text) {
+    if(!text){
         resultDiv.innerHTML = "Nghĩa sẽ hiện ở đây";
         return;
     }
@@ -180,33 +151,26 @@ function translateText() {
     let result = [];
     let i = 0;
 
-    while (i < text.length) {
+    while(i < text.length){
 
         let found = false;
 
-        for (let len = 10; len >= 1; len--) {
+        for(let len = 10; len >= 1; len--){
 
             const part = text.substring(i, i + len);
-
             const word = sentences2.find(w => w.hanzi === part);
 
-            if (word) {
+            if(word){
 
-                const meanings = word.meaning
-                .split(",")
-                .map(m => m.replace(/\(.*?\)/g, "").trim())
-                .filter(m => m);
+                // 🔥 CHỈ SỬA 1 CHỖ Ở ĐÂY: bỏ ngoặc
+                let meaning = word.meaning
+                    .split(",")[0]
+                    .replace(/[（(][^）)]*[）)]/g, "")
+                    .replace(/\s+/g, " ")
+                    .trim();
 
                 const span = document.createElement("span");
-                span.innerText = meanings[0] + " ";
-
-                span.onclick = (e)=>{
-                    e.stopPropagation();
-
-                    showPopup(e.pageX, e.pageY, meanings, (value)=>{
-                        span.innerText = value + " ";
-                    });
-                };
+                span.innerText = meaning + " ";
 
                 result.push(span.outerHTML);
 
@@ -216,13 +180,39 @@ function translateText() {
             }
         }
 
-        if (!found) i++;
+        if(!found) i++;
     }
 
     resultDiv.innerHTML = result.join("");
 }
 
-/* 🔥 ĐỒNG BỘ NỀN TOÀN WEB */
+/* ================== TTS ================== */
+function speak(text, lang, btn){
+    if(!text) return;
+
+    speechSynthesis.cancel();
+
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+
+    if(btn) btn.classList.add("speaking");
+
+    u.onend = () => {
+        if(btn) btn.classList.remove("speaking");
+    };
+
+    speechSynthesis.speak(u);
+}
+
+function readChinese(e){
+    speak(document.getElementById("inputText").value, "zh-CN", e?.target);
+}
+
+function readVietnamese(e){
+    speak(document.getElementById("result").innerText, "vi-VN", e?.target);
+}
+
+/* ================== BACKGROUND ================== */
 window.addEventListener("load", () => {
 
     const saved = localStorage.getItem("bg-index");
@@ -235,17 +225,10 @@ window.addEventListener("load", () => {
         "bg-china5.png"
     ];
 
-    if(saved !== null){
-        document.documentElement.style.setProperty(
-            '--bg-image',
-            `url("${backgrounds[saved]}")`
-        );
-    } else {
-        document.documentElement.style.setProperty(
-            '--bg-image',
-            `url("bg-china2.png")`
-        );
-    }
+    document.documentElement.style.setProperty(
+        '--bg-image',
+        `url("${backgrounds[saved] || "bg-china2.png"}")`
+    );
 });
 
 </script>
