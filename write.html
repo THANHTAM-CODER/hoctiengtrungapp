@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dịch Hán Việt</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    width:600px;
+    max-width:90%;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+textarea{
+    width:90%;
+    height:160px;
+    padding:12px;
+    font-size:20px;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+.result{
+    margin-top:20px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:15px;
+    font-size:24px;
+    color:#333;
+    min-height:60px;
+    text-align:left;
+    line-height:1.8;
+}
+
+.popup{
+    position:absolute;
+    background:white;
+    border:1px solid #ccc;
+    border-radius:10px;
+    padding:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    display:none;
+    z-index:999;
+}
+.popup div{
+    padding:5px;
+    cursor:pointer;
+}
+.popup div:hover{
+    background:#eee;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>✍️ Dịch Hán Việt</h1>
+
+    <textarea id="inputText" placeholder="Nhập đoạn văn..." oninput="translateText()"></textarea>
+
+    <div class="result" id="result">Nghĩa sẽ hiện ở đây</div>
+</div>
+
+<div class="popup" id="popup"></div>
+
+<script src="sentences2.js"></script>
+
+<script>
+
+function showPopup(x, y, meanings, callback){
+
+    const popup = document.getElementById("popup");
+    popup.innerHTML = "";
+
+    meanings.forEach(m=>{
+        const div = document.createElement("div");
+        div.innerText = m;
+        div.onclick = ()=>{
+            callback(m);
+            popup.style.display = "none";
+        };
+        popup.appendChild(div);
+    });
+
+    popup.style.left = x + "px";
+    popup.style.top = y + "px";
+    popup.style.display = "block";
+}
+
+document.addEventListener("click", ()=>{
+    document.getElementById("popup").style.display = "none";
+});
+
+function translateText() {
+
+    const text = document.getElementById("inputText").value.trim();
+    const resultDiv = document.getElementById("result");
+
+    if (!text) {
+        resultDiv.innerHTML = "Nghĩa sẽ hiện ở đây";
+        return;
+    }
+
+    let result = [];
+    let i = 0;
+
+    while (i < text.length) {
+
+        let found = false;
+
+        for (let len = 10; len >= 1; len--) {
+
+            const part = text.substring(i, i + len);
+
+            const word = sentences2.find(w => w.hanzi === part);
+
+            if (word) {
+
+                const meanings = word.meaning.split(",");
+
+                const span = document.createElement("span");
+                span.innerText = meanings[0] + " ";
+
+                span.onclick = (e)=>{
+                    e.stopPropagation();
+
+                    showPopup(e.pageX, e.pageY, meanings, (value)=>{
+                        span.innerText = value + " ";
+                    });
+                };
+
+                result.push(span.outerHTML);
+
+                i += len;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            i++;
+        }
+    }
+
+    resultDiv.innerHTML = result.join("");
+}
+
+</script>
+
+</body>
+</html>

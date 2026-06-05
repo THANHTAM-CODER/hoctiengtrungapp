@@ -189,3 +189,31 @@ function closeGuide() {
     document.getElementById("guideModal").style.display = "none";
 }
 
+/**************** BỘ HỎI TỪ  ****************/
+function createMeaningSelector(word) {
+
+    const meanings = word.meaning.split(",");
+
+    if (meanings.length <= 1) {
+        return word.meaning;
+    }
+
+    const id = "m" + Math.random().toString(36).substr(2, 9);
+
+    return `
+        <span class="multi-word">
+            <span id="${id}" class="selected-meaning">
+                ${meanings[0]} ▼
+            </span>
+
+            <select onchange="
+                document.getElementById('${id}').innerHTML =
+                this.value + ' ▼';
+            ">
+                ${meanings.map(m =>
+                    `<option value="${m}">${m}</option>`
+                ).join("")}
+            </select>
+        </span>
+    `;
+}

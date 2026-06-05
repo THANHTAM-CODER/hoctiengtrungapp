@@ -5,12 +5,12 @@ let sentences2 = [
     { hanzi: "谢谢",     pinyin: "xiè xie",       meaning: "cảm ơn" },
     { hanzi: "再见",     pinyin: "zài jiàn",      meaning: "tạm biệt" },
     { hanzi: "不客气",   pinyin: "bù kè qì",      meaning: "không có gì" },
-    { hanzi: "请",       pinyin: "qǐng",          meaning: "mời / xin" },
+    { hanzi: "请",       pinyin: "qǐng",          meaning: "mời，xin" },
     { hanzi: "请进",     pinyin: "qǐng jìn",      meaning: "mời vào" },
     { hanzi: "请问",     pinyin: "qǐng wèn",      meaning: "xin hỏi" },
     { hanzi: "什么",     pinyin: "shén me",       meaning: "gì" },
     { hanzi: "对了",     pinyin: "duì le",        meaning: "đúng rồi" },
-    { hanzi: "了",       pinyin: "le",            meaning: "rồi" },
+    { hanzi: "我",       pinyin: "wǒ",            meaning: "tôi" },
 
     // ================= NGƯỜI / GIA ĐÌNH =================
     { hanzi: "你",       pinyin: "nǐ",            meaning: "bạn" },
@@ -56,7 +56,7 @@ let sentences2 = [
     { hanzi: "年",       pinyin: "nián",          meaning: "năm" },
 
     // ================= THỜI GIAN NÂNG CAO =================
-    { hanzi: "小时",     pinyin: "xiǎo shí",      meaning: "giờ" },
+    { hanzi: "点",       pinyin: "diǎn",      meaning: "giờ" },
     { hanzi: "分钟",     pinyin: "fēn zhōng",     meaning: "phút" },
     { hanzi: "半",       pinyin: "bàn",           meaning: "rưỡi" },
     { hanzi: "差",       pinyin: "chà",           meaning: "kém" },
@@ -84,6 +84,8 @@ let sentences2 = [
     { hanzi: "取",       pinyin: "qǔ",            meaning: "rút" },
     { hanzi: "回",       pinyin: "huí",           meaning: "về" },
     { hanzi: "进",       pinyin: "jìn",           meaning: "vào" },
+    { hanzi: "姓",       pinyin: "xìng",          meaning: "họ" },
+    { hanzi: "名字",     pinyin: "míng zi",       meaning: "tên" },
 
     // ================= ĐỊA ĐIỂM =================
     { hanzi: "这里",     pinyin: "zhè lǐ",        meaning: "ở đây" },
@@ -125,13 +127,15 @@ let sentences2 = [
     { hanzi: "些",       pinyin: "xiē",           meaning: "vài" },
     { hanzi: "饱",       pinyin: "bǎo",           meaning: "no" },
     { hanzi: "饿",       pinyin: "è",             meaning: "đói" },
-    { hanzi: "煮",       pinyin: "zhǔ",           meaning: "nấu / luộc" },
+    { hanzi: "煮",       pinyin: "zhǔ",           meaning: "nấu，luộc" },
     { hanzi: "蒸",       pinyin: "zhēng",         meaning: "hấp" },
     { hanzi: "包子",     pinyin: "bāo zi",        meaning: "bánh bao" },
     { hanzi: "馒头",     pinyin: "mán tou",       meaning: "màn thầu" },
     { hanzi: "鸡蛋",     pinyin: "jī dàn",        meaning: "trứng gà" },
     { hanzi: "饺子",     pinyin: "jiǎo zi",       meaning: "sủi cảo" },
     { hanzi: "面条",     pinyin: "miàn tiáo",     meaning: "mì sợi" },
+    { hanzi: "是",       pinyin: "shi",           meaning: "là" },
+    
 
     // ================= BỔ SUNG =================
     { hanzi: "身体",     pinyin: "shēn tǐ",       meaning: "sức khỏe" },
@@ -140,4 +144,8 @@ let sentences2 = [
     { hanzi: "语言",     pinyin: "yǔ yán",        meaning: "ngôn ngữ" },
     { hanzi: "汉语",     pinyin: "hànyǔ",       meaning: "tiếng hán" },
     { hanzi: "汉字",     pinyin: "han zi",        meaning: "chữ hán" }
-];
+];    
+// add lên github
+/*git add . 
+git commit -m "update" 
+git push origin main */

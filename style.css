@@ -311,4 +311,29 @@ a{
 .speak-btn:hover{
     transform: scale(1.1);
 }
+textarea{
+    width:90%;
+    height:180px;
+    padding:12px;
+    font-size:24px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    resize:vertical;
+}
+.multi-word{
+    position:relative;
+    display:inline-block;
+    margin:0 4px;
+}
+
+.selected-meaning{
+    color:#007bff;
+    text-decoration:underline;
+    cursor:pointer;
+}
+
+.multi-word select{
+    margin-left:5px;
+    border-radius:6px;
+}
 
