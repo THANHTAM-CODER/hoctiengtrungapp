@@ -6,16 +6,38 @@
 <title>Luyện Câu Tiếng Trung</title>
 
 <style>
+:root{
+    --bg-image: url("bg-china2.png");
+}
+
 body {
     margin: 0;
     font-family: Arial;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+
+    position: relative;
+    overflow: hidden;
 }
 
+/* NỀN ĐỒNG BỘ TOÀN WEB */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index:-2;
+}
+
+/* container */
 .container {
     background: white;
     padding: 30px;
@@ -25,6 +47,7 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
+/* sentence */
 #sentence {
     font-size: 28px;
     margin: 20px 0;
@@ -32,6 +55,7 @@ body {
     color: black;
 }
 
+/* input */
 input {
     width: 90%;
     padding: 10px;
@@ -40,6 +64,7 @@ input {
     margin-bottom: 10px;
 }
 
+/* button */
 button {
     padding: 10px 15px;
     margin: 5px;
@@ -187,6 +212,34 @@ function checkSentence() {
 
     canRandom = true;
 }
+</script>
+
+<!-- 🔥 ĐỒNG BỘ NỀN TOÀN WEB -->
+<script>
+window.addEventListener("load", () => {
+
+    const saved = localStorage.getItem("bg-index");
+
+    const backgrounds = [
+        "bg-china.png",
+        "bg-china2.png",
+        "bg-china3.png",
+        "bg-china4.png",
+        "bg-china5.png"
+    ];
+
+    if(saved !== null){
+        document.documentElement.style.setProperty(
+            '--bg-image',
+            `url("${backgrounds[saved]}")`
+        );
+    } else {
+        document.documentElement.style.setProperty(
+            '--bg-image',
+            `url("bg-china2.png")`
+        );
+    }
+});
 </script>
 
 </body>

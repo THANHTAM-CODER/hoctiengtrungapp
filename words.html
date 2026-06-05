@@ -2,10 +2,16 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="style.css">
 <title>Tìm kiếm tiếng Trung</title>
 
 <style>
+:root{
+    --bg-image: url("bg-china2.png");
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -15,13 +21,23 @@ body {
     justify-content: center;
     align-items: center;
 
-    background: url("bg-china2.png") no-repeat center center/cover;
     position: relative;
     overflow: hidden;
 }
 
-/* lớp tối + blur nền */
+/* NỀN CHUNG TOÀN WEB */
+body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
 
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: -2;
+}
 
 /* card chính */
 .container {
@@ -67,7 +83,6 @@ input {
     outline: none;
 
     margin-top: 15px;
-
     font-size: 15px;
 }
 
@@ -85,19 +100,14 @@ button {
     transition: 0.3s;
 }
 
-#searchBtn {
-    background: #2563eb;
-    color: white;
-}
-
-#toggleBtn {
-    background: #dc2626;
-    color: white;
-}
-
 button:hover {
     transform: scale(1.05);
 }
+
+#searchBtn { background: #2563eb; color: white; }
+#toggleBtn { background: #dc2626; color: white; }
+#deleteBtn { background: #666; color: white; }
+#backBtn { background: #16a34a; color: white; }
 
 /* bảng kết quả */
 #result {
@@ -108,13 +118,11 @@ button:hover {
     overflow-y: auto;
 }
 
-/* header bảng */
 .header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 80px;
 
     padding: 10px;
-
     background: #2563eb;
 
     border-radius: 10px;
@@ -123,7 +131,6 @@ button:hover {
     color: white;
 }
 
-/* item */
 .item {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 80px;
@@ -132,11 +139,9 @@ button:hover {
     margin-top: 8px;
 
     background: rgba(37,99,235,0.08);
-
     border-radius: 10px;
 
     transition: 0.3s;
-
     color: #333;
 }
 
@@ -144,58 +149,38 @@ button:hover {
     background: rgba(37,99,235,0.15);
     transform: translateX(5px);
 }
-#deleteBtn {
-    background: #666;
-    color: white;
-}
-#backBtn {
-    background: #16a34a;
-    color: white;
-}
 
-/* mode text */
-#modeText {
-    margin: 5px 0;
-}
-
-/* responsive */
 @media(max-width:768px){
     .container {
         width: 95%;
         padding: 15px;
     }
 
-    h2 {
-        font-size: 26px;
-    }
-
-    h3 {
-        font-size: 16px;
-    }
-
-    input {
-        width: 95%;
-    }
+    h2 { font-size: 26px; }
+    h3 { font-size: 16px; }
+    input { width: 95%; }
 }
 </style>
 </head>
 
 <body>
+
 <div class="container">
-<!-- tiêu đề -->
+
 <h2>🔍 Tìm kiếm tiếng Trung</h2>
 <h3 id="modeText">🔤 Đang tìm: Chữ Hán</h3>
 
-<input type="text" id="searchInput" placeholder="Nhập từ cần tìm..." onkeydown="if(event.key==='Enter') searchWord()">
+<input type="text" id="searchInput"
+placeholder="Nhập từ cần tìm..."
+onkeydown="if(event.key==='Enter') searchWord()">
 
 <br>
-<!-- các button -->
+
 <button id="searchBtn" onclick="searchWord()">Tìm kiếm</button>
 <button id="toggleBtn" onclick="toggleMode()">Chuyển sang: Nghĩa</button>
 <button id="deleteBtn" onclick="clearSearch()">🗑 Xóa</button>
-
 <button id="backBtn" onclick="goHome()">🏠 Trang Chủ</button>
-<button id="helpBtn" onclick="showHelp()"> 📖 Hướng dẫn</button>
+<button onclick="showHelp()">📖 Hướng dẫn</button>
 
 <div id="result"></div>
 
@@ -207,7 +192,7 @@ button:hover {
 
 let searchMode = "hanzi";
 
-
+/* đổi mode */
 function toggleMode() {
     let btn = document.getElementById("toggleBtn");
     let modeText = document.getElementById("modeText");
@@ -223,8 +208,7 @@ function toggleMode() {
     }
 }
 
-/* hàm tìm kiếm */
-/* hàm tìm kiếm */
+/* tìm kiếm */
 function searchWord() {
 
     let input = document.getElementById("searchInput").value.trim();
@@ -238,11 +222,8 @@ function searchWord() {
     }
 
     let found = sentences2.filter(item => {
-        if (searchMode === "hanzi") {
-            return item.hanzi === input;
-        } else {
-            return item.meaning === input;
-        }
+        if (searchMode === "hanzi") return item.hanzi === input;
+        else return item.meaning === input;
     });
 
     if (found.length === 0) {
@@ -255,54 +236,70 @@ function searchWord() {
             <div>Hán tự</div>
             <div>Nghĩa</div>
             <div>Pinyin</div>
-            <div>Phát âm </div>
+            <div>🔊</div>
         </div>
     `;
 
     found.forEach(item => {
-    resultDiv.innerHTML += `
+        resultDiv.innerHTML += `
         <div class="item">
             <div>${item.hanzi}</div>
             <div>${item.meaning}</div>
             <div>${item.pinyin}</div>
-
             <div>
-                <button class="speak-btn"
-                    onclick="speakChinese('${item.hanzi}')">
-                    🔊
-                </button>
+                <button onclick="speakChinese('${item.hanzi}')">🔊</button>
             </div>
         </div>
-    `;
-     }); 
+        `;
+    });
 }
 
-/* đọc tiếng Trung */
+/* phát âm */
 function speakChinese(text) {
-
     speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
-
     utterance.lang = "zh-CN";
     utterance.rate = 0.9;
-    utterance.pitch = 1;
 
     speechSynthesis.speak(utterance);
 }
-/* hàm xóa và input kết quả*/
+
+/* xóa */
 function clearSearch() {
     document.getElementById("searchInput").value = "";
     document.getElementById("result").innerHTML = "";
 }
-/* hàm quay về trang chủ*/
+
+/* về trang chủ */
 function goHome() {
     window.location.href = "index.html";
 }
-/* hàm hiển thị hướng dẫn */
+
+/* hướng dẫn */
 function showHelp() {
-    alert("Hướng dẫn sử dụng:\n1. Nhập từ cần tìm vào ô nhập liệu.\n2. Nhấn Enter hoặc click vào nút 'Tìm kiếm' để thực hiện tìm kiếm.\n3. Sử dụng nút 'Chuyển sang: Nghĩa' để chuyển đổi giữa tìm kiếm theo chữ Hán và nghĩa.\n4. Nhấn 'Xóa' để xóa nội dung tìm kiếm và kết quả.");
+    alert("Nhập từ → tìm kiếm → đổi chế độ Hán/Nghĩa → 🔊 nghe phát âm");
 }
+
+/* 🔥 ĐỒNG BỘ NỀN TOÀN WEB */
+window.addEventListener("load", () => {
+    const saved = localStorage.getItem("bg-index");
+
+    const backgrounds = [
+        "bg-china.png",
+        "bg-china2.png",
+        "bg-china3.png",
+        "bg-china4.png",
+        "bg-china5.png"
+    ];
+
+    if(saved !== null){
+        document.documentElement.style.setProperty(
+            '--bg-image',
+            `url("${backgrounds[saved]}")`
+        );
+    }
+});
 
 </script>
 

@@ -17,20 +17,21 @@ body::before{
     position: fixed;
     top: -5%;
     left: -5%;
-
     width: 110%;
     height: 110%;
 
-    background-image: url("bg-china2.png");
+    background-image: var(--bg-image);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
 
     opacity: 1;
-
     z-index: -2;
 
     animation: backgroundFloat 20s ease-in-out infinite;
+}
+:root{
+    --bg-image: url("bg-china2.png");
 }
 
 /* Lớp phủ tối nhẹ */
@@ -336,4 +337,62 @@ textarea{
     margin-left:5px;
     border-radius:6px;
 }
+.bg-btn{
+    position:fixed;
+    top:15px;
+    right:15px;
 
+    width:48px;
+    height:48px;
+
+    border:none;
+    border-radius:50%;
+
+    cursor:pointer;
+
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,0.4);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+
+    font-size: 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition: 0.3s;
+}
+
+/* ✨ hiệu ứng xoay nhẹ khi load */
+.bg-btn {
+    animation: floatSpin 4s infinite linear;
+}
+
+/* hover dừng xoay + phóng to */
+.bg-btn:hover{
+    animation-play-state: paused;
+    transform: scale(1.1);
+    background: rgba(255,255,255,0.9);
+}
+
+@keyframes floatSpin{
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(180deg) scale(1.05); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+.bg-icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    animation: spin 5s linear infinite; /* nếu muốn xoay */
+}
+
+/* nếu muốn xoay */
+@keyframes spin{
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

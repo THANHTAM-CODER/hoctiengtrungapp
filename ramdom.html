@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<link rel="stylesheet" href="style.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
 <title>说 汉语</title>
+
+<style>
+:root{
+    --bg-image: url("bg-china2.png");
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+    overflow:hidden;
+}
+
+/* NỀN CHUNG TOÀN WEB */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background-image: var(--bg-image);
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    z-index:-2;
+}
+
+/* giữ layout của bạn */
+.container{
+    position:relative;
+}
+
+/* modal giữ từ style.css */
+</style>
 </head>
 
 <body>
@@ -19,9 +59,9 @@
         <p>📖 Nhấn Random để lấy từ mới</p>
         <p>📖 Nhập nghĩa tiếng Việt</p>
         <p>📖 Nhấn Kiểm Tra để kiểm tra đúng sai</p>
-        <p>📖 Từ nào là số thì phải ghi là: số ...</p>
-        <p>📖 Từ nào 2-3 nghĩa trở lên phải điền đủ ít nhất 2 nghĩa mới tính là đúng và cách nhau bởi dấu phẩy</p>
-        <p>📖 Ví dụ: 好 là khỏe,đẹp,ok</p>
+        <p>📖 Từ số ghi: số ...</p>
+        <p>📖 Từ nhiều nghĩa phải nhập ít nhất 2 nghĩa</p>
+        <p>📖 Ví dụ: 好 = khỏe,đẹp,ok</p>
 
         <button onclick="closeGuide()">⬅ Quay về</button>
     </div>
@@ -32,9 +72,9 @@
     <h1>📖 学汉语</h1>
     <h2 class="slogan">汉语不太难</h2>
 
-
     <div class="card">
         <h2 id="hanzi">Nhấn Random</h2>
+
         <input type="text" id="answer" placeholder="Nhập nghĩa tiếng Việt">
 
         <br>
@@ -42,14 +82,12 @@
         <button onclick="checkAnswer()">Kiểm Tra</button>
         <button onclick="randomWord()">Random Từ</button>
         <button onclick="openGuide()">📘 Hướng dẫn</button>
-        <button onclick="location.href='index.html'">
-    🏠 Menu
-</button>
-    
 
+        <button onclick="location.href='index.html'">
+            🏠 Menu
+        </button>
 
         <p id="result"></p>
-
     </div>
 
     <div class="score">
@@ -63,11 +101,34 @@
 
 </div>
 
-<!-- 📌 SCRIPT -->
 <script src="sentences2.js"></script>
+
 <audio id="soundCorrect" src="concertD.mp3"></audio>
 <audio id="soundWrong" src="concertS.mp3"></audio>
+
 <script src="script.js"></script>
+
+<!-- 🔥 ĐỒNG BỘ NỀN TOÀN HỆ THỐNG -->
+<script>
+window.addEventListener("load", () => {
+    const saved = localStorage.getItem("bg-index");
+
+    const backgrounds = [
+        "bg-china.png",
+        "bg-china2.png",
+        "bg-china3.png",
+        "bg-china4.png",
+        "bg-china5.png"
+    ];
+
+    if(saved !== null){
+        document.documentElement.style.setProperty(
+            '--bg-image',
+            `url("${backgrounds[saved]}")`
+        );
+    }
+});
+</script>
 
 </body>
 </html>
