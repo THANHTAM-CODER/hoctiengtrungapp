@@ -78,6 +78,8 @@ function deleteWord(i) {
 
 /**************** FLASHCARD RANDOM ****************/
 
+/**************** FLASHCARD RANDOM ****************/
+
 function randomWord() {
 
     if (words.length === 0) {
@@ -85,8 +87,22 @@ function randomWord() {
         return;
     }
 
-    const i = Math.floor(Math.random() * words.length);
-    currentWord = words[i];
+    // Loại bỏ các số tự sinh từ 11 -> 99
+    const randomWords = words.filter(w => {
+
+        if (/^\d+$/.test(w.meaning)) {
+
+            const n = parseInt(w.meaning);
+
+            // Chỉ giữ lại 0 -> 10
+            return n <= 10;
+        }
+
+        return true; // các từ bình thường vẫn được random
+    });
+
+    const i = Math.floor(Math.random() * randomWords.length);
+    currentWord = randomWords[i];
 
     document.getElementById("hanzi").innerText = currentWord.hanzi;
     document.getElementById("answer").value = "";
@@ -141,7 +157,6 @@ function checkAnswer() {
     correct++;
     localStorage.setItem("correct", correct);
     document.getElementById("correct").innerText = correct;
-    updateLevel(); // 🔥 cập nhật cấp độ
     document.getElementById("result").innerText =
         "✅ Đúng! Đáp án: " +
         currentWord.meaning +

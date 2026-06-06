@@ -211,7 +211,10 @@ function toggleMode() {
 /* tìm kiếm */
 function searchWord() {
 
-    let input = document.getElementById("searchInput").value.trim();
+    let input = document.getElementById("searchInput")
+    .value
+    .trim()
+    .toLowerCase();
     let resultDiv = document.getElementById("result");
 
     resultDiv.innerHTML = "";
@@ -221,10 +224,16 @@ function searchWord() {
         return;
     }
 
-    let found = sentences2.filter(item => {
-        if (searchMode === "hanzi") return item.hanzi === input;
-        else return item.meaning === input;
-    });
+   let found = sentences2.filter(item => {
+
+    if (searchMode === "hanzi") {
+        return item.hanzi === input;
+    }
+
+    return (item.meaning || "")
+        .toLowerCase()
+        .includes(input);
+});
 
     if (found.length === 0) {
         resultDiv.innerHTML = "❌ Không tìm thấy từ cần tìm !";
@@ -278,7 +287,7 @@ function goHome() {
 
 /* hướng dẫn */
 function showHelp() {
-    alert("Nhập từ → tìm kiếm → đổi chế độ Hán/Nghĩa → 🔊 nghe phát âm");
+    alert("Nhập từ cần tìm → Đổi chế độ Hán/Nghĩa nếu muốn tìm theo nghĩa hoặc hán tự → 🔊 nghe phát âm" + "\n" + "⚠️ Nếu kiếm số thì chỉ ghi số không ghi thêm từ \"số\"");
 }
 
 /* 🔥 ĐỒNG BỘ NỀN TOÀN WEB */
