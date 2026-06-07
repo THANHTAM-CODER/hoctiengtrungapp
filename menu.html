@@ -253,6 +253,14 @@ input[type="range"]::-webkit-slider-thumb:hover{
     cursor: pointer;
     accent-color: #2563eb;
 }
+#musicList{
+    flex:1;
+    max-width:150px;
+    padding:6px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:15px;
+}
 </style>
 </head>
 
@@ -306,13 +314,21 @@ input[type="range"]::-webkit-slider-thumb:hover{
      <input type="checkbox" id="musicToggle">
     </div>
 
-    <audio id="bgMusic" loop>
-     <source src="music.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgMusic" loop></audio>
     <div class="setting-row">
     <span>🔊 Âm lượng</span>
     <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1">
     </div>
+    <div class="setting-row">
+    <span>🎶 Chọn nhạc</span>
+    <select id="musicList">
+        <option value="musicall/music1.mp3">Bài 1</option>
+        <option value="musicall/music2.mp3">Bài 2</option>
+        <option value="musicall/music3.mp3">Bài 3</option>
+        <option value="musicall/music4.mp3">Bài 4</option>
+        <option value="musicall/music5.mp3">Bài 5</option>
+    </select>
+</div>
 </div>
 <script>
 function logout(){
@@ -442,6 +458,35 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!isNaN(v)) {
             bgMusic.volume = v;
             localStorage.setItem("musicVolume", v);
+        }
+    });
+
+});
+document.addEventListener("DOMContentLoaded", () => {
+
+    const bgMusic = document.getElementById("bgMusic");
+    const musicList = document.getElementById("musicList");
+    const musicToggle = document.getElementById("musicToggle");
+
+    if (!bgMusic || !musicList) return;
+
+    // load bài đã lưu
+    const savedMusic = localStorage.getItem("musicSrc");
+    if (savedMusic) {
+        bgMusic.src = savedMusic;
+        musicList.value = savedMusic;
+    }
+
+    // đổi bài nhạc
+    musicList.addEventListener("change", function () {
+        const newSrc = this.value;
+
+        bgMusic.src = newSrc;
+        localStorage.setItem("musicSrc", newSrc);
+
+        // nếu đang bật nhạc thì phát luôn
+        if (musicToggle.checked) {
+            bgMusic.play().catch(err => console.log(err));
         }
     });
 
