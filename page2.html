@@ -180,13 +180,20 @@ function randomSentence() {
     document.getElementById("result").innerText = "";
 
     document.getElementById("logo").innerText = "😊 Luyện Câu";
-
+    document.getElementById("logo").style.color =
+    "#2563eb"
     startTimer();
 }
-
 function checkSentence() {
+
     let input = document.getElementById("answer").value.trim();
     let result = document.getElementById("result");
+
+    const correctSound =
+        document.getElementById("correctSound");
+
+    const wrongSound =
+        document.getElementById("wrongSound");
 
     if (!current.cn) {
         result.innerText = "⚠️ Nhấn Random trước!";
@@ -195,20 +202,49 @@ function checkSentence() {
 
     clearInterval(timer);
 
-    if (input === current.vi) {
+    const normalize = str =>
+        str.toLowerCase()
+           .trim()
+           .replace(/\s+/g, " ");
+
+    if (
+        normalize(input) ===
+        normalize(current.vi)
+    ) {
+
         correct++;
+
         result.innerText = "✔ Đúng!";
         result.style.color = "green";
-        document.getElementById("logo").innerText = "😄对了";
+
+        document.getElementById("logo").innerText =
+            "😄对了";
+        document.getElementById("logo").style.color ="#16a34a";    
+        correctSound.currentTime = 0;
+        correctSound.play().catch(()=>{});
+
     } else {
+
         wrong++;
-        result.innerText = "❌ Sai! Đáp án: " + current.vi;
+
+        result.innerText =
+            "❌ Sai! Đáp án: " + current.vi;
+
         result.style.color = "red";
-        document.getElementById("logo").innerText = "😡 不对";
+
+        document.getElementById("logo").innerText =
+            "😡 不对";
+        document.getElementById("logo").style.color ="#dc2626";    
+        wrongSound.currentTime = 0;
+        wrongSound.play().catch(()=>{});
+
     }
 
-    document.getElementById("correct").innerText = correct;
-    document.getElementById("wrong").innerText = wrong;
+    document.getElementById("correct").innerText =
+        correct;
+
+    document.getElementById("wrong").innerText =
+        wrong;
 
     canRandom = true;
 }
@@ -241,7 +277,10 @@ window.addEventListener("load", () => {
     }
 });
 </script>
-
+<audio id="bgMusic" loop></audio>
+<audio id="correctSound" src="concertD.mp3"></audio>
+<audio id="wrongSound" src="concertS.mp3"></audio>
+<script src="music.js"></script>
 
 </body>
 </html>

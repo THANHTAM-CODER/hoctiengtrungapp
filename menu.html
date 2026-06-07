@@ -261,6 +261,39 @@ input[type="range"]::-webkit-slider-thumb:hover{
     border:1px solid #ccc;
     font-size:15px;
 }
+.setting-btn{
+    background:#2563eb;
+    transition:0.25s;
+}
+
+/* khi hover */
+.setting-btn:hover{
+    box-shadow:0 0 12px rgba(37,99,235,0.5);
+}
+
+/* khi nhấn */
+.setting-btn:active{
+    transform:scale(0.97);
+}
+
+/* khi đang mở */
+.setting-btn.active{
+    animation:musicGlow 1.2s infinite alternate;
+}
+
+@keyframes musicGlow{
+    from{
+        box-shadow:
+            0 0 15px #3b82f6,
+            0 0 30px #3b82f6;
+    }
+    to{
+        box-shadow:
+            0 0 35px #3b82f6,
+            0 0 70px #3b82f6,
+            0 0 100px #3b82f6;
+    }
+}
 </style>
 </head>
 
@@ -313,8 +346,6 @@ input[type="range"]::-webkit-slider-thumb:hover{
     <span>🎵 Bật nhạc</span>
      <input type="checkbox" id="musicToggle">
     </div>
-
-    <audio id="bgMusic" loop></audio>
     <div class="setting-row">
     <span>🔊 Âm lượng</span>
     <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1">
@@ -393,104 +424,27 @@ setTimeout(showHint, 60000);
 // lặp lại mỗi 5 phút
 setInterval(showHint, 300000);
 function toggleSettings(){
+
     const box = document.getElementById("settingsBox");
+    const btn = document.querySelector(".setting-btn");
 
     if(box.style.display === "block"){
+
         box.style.display = "none";
+        btn.classList.remove("active");
+
     }else{
+
         box.style.display = "block";
+        btn.classList.add("active");
+
     }
 }
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    const musicToggle = document.getElementById("musicToggle");
-    const bgMusic = document.getElementById("bgMusic");
-
-    if (!musicToggle || !bgMusic) {
-        console.log("Thiếu musicToggle hoặc bgMusic");
-        return;
-    }
-
-    musicToggle.addEventListener("change", async function () {
-
-        console.log("tick =", this.checked);
-
-        if (this.checked) {
-            try {
-                bgMusic.currentTime = 0;
-                await bgMusic.play();
-            } catch (e) {
-                console.log("Không phát được nhạc:", e);
-            }
-        } else {
-            bgMusic.pause();
-            bgMusic.currentTime = 0;
-        }
-    });
-
-});
-document.addEventListener("DOMContentLoaded", () => {
-
-    const bgMusic = document.getElementById("bgMusic");
-    const volumeControl = document.getElementById("volumeControl");
-
-    if (!bgMusic || !volumeControl) return;
-
-    // lấy volume lưu
-    const saved = localStorage.getItem("musicVolume");
-
-    // kiểm tra hợp lệ
-    let volume = 1;
-
-    if (saved !== null && !isNaN(saved)) {
-        volume = parseFloat(saved);
-    }
-
-    bgMusic.volume = volume;
-    volumeControl.value = volume;
-
-    volumeControl.addEventListener("input", function () {
-
-        const v = parseFloat(this.value);
-
-        if (!isNaN(v)) {
-            bgMusic.volume = v;
-            localStorage.setItem("musicVolume", v);
-        }
-    });
-
-});
-document.addEventListener("DOMContentLoaded", () => {
-
-    const bgMusic = document.getElementById("bgMusic");
-    const musicList = document.getElementById("musicList");
-    const musicToggle = document.getElementById("musicToggle");
-
-    if (!bgMusic || !musicList) return;
-
-    // load bài đã lưu
-    const savedMusic = localStorage.getItem("musicSrc");
-    if (savedMusic) {
-        bgMusic.src = savedMusic;
-        musicList.value = savedMusic;
-    }
-
-    // đổi bài nhạc
-    musicList.addEventListener("change", function () {
-        const newSrc = this.value;
-
-        bgMusic.src = newSrc;
-        localStorage.setItem("musicSrc", newSrc);
-
-        // nếu đang bật nhạc thì phát luôn
-        if (musicToggle.checked) {
-            bgMusic.play().catch(err => console.log(err));
-        }
-    });
-
-});
 </script>
+<audio id="bgMusic" loop></audio>
+<script src="music.js"></script>
+</body>
+</html>
 </body>
 </html>

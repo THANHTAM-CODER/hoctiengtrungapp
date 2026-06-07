@@ -168,15 +168,7 @@ a{
 <script>
 
 /* ================== XOÁ NGOẶC TOÀN BỘ DATA ================== */
-function cleanMeaning(text){
-    if(!text) return "";
 
-    return text
-        .split(",")
-        .map(m => m.replace(/\s*\(.*?\)\s*/g, "").trim())
-        .filter(Boolean)
-        .join(",");
-}
 
 /* làm sạch toàn bộ dữ liệu 1 lần */
 sentences2.forEach(w => {
@@ -184,6 +176,41 @@ sentences2.forEach(w => {
 });
 
 /* ================== TRANSLATE ================== */
+
+let selectedSpan = null;
+
+function closeMeaningModal(){
+    document.getElementById("meaningModal").style.display = "none";
+}
+
+function chooseMeaning(meanings, span){
+
+    selectedSpan = span;
+
+    const box = document.getElementById("meaningOptions");
+
+    box.innerHTML = "";
+
+    meanings.forEach(m => {
+
+        const btn = document.createElement("button");
+
+        btn.className = "tts-btn";
+        btn.innerText = m;
+
+        btn.onclick = () => {
+
+            selectedSpan.innerText = m + " ";
+
+            closeMeaningModal();
+        };
+
+        box.appendChild(btn);
+    });
+
+    document.getElementById("meaningModal").style.display = "flex";
+}
+
 function translateText(){
 
     const text = document.getElementById("inputText").value.trim();
@@ -194,7 +221,8 @@ function translateText(){
         return;
     }
 
-    let result = [];
+    resultDiv.innerHTML = "";
+
     let i = 0;
 
     while(i < text.length){
@@ -208,17 +236,52 @@ function translateText(){
 
             if(word){
 
-                // 🔥 CHỈ SỬA 1 CHỖ Ở ĐÂY: bỏ ngoặc
-                let meaning = word.meaning
-                    .split(",")[0]
-                    .replace(/[（(][^）)]*[）)]/g, "")
-                    .replace(/\s+/g, " ")
-                    .trim();
+                const meanings = word.meaning
+                    .split(",")
+                    .map(m =>
+                        m
+                        .replace(/[（(][^）)]*[）)]/g,"")
+                        .trim()
+                    )
+                    .filter(Boolean);
 
                 const span = document.createElement("span");
-                span.innerText = meaning + " ";
 
-                result.push(span.outerHTML);
+                if(meanings.length <= 1){
+
+                    span.innerText = meanings[0] + " ";
+
+                }else{
+
+                    span.innerText = meanings[0] + " ";
+                    span.style.cursor = "pointer";
+                    span.style.color = "#2563eb";
+                    span.title = "Nhấn để đổi nghĩa";
+
+                    span.onclick = () => {
+
+                        let menu = "Chọn nghĩa:\n\n";
+
+                        meanings.forEach((m,index)=>{
+                            menu += (index+1) + ". " + m + "\n";
+                        });
+
+                        const choose = prompt(menu,"1");
+
+                        const num = parseInt(choose);
+
+                        if(
+                            !isNaN(num) &&
+                            num >= 1 &&
+                            num <= meanings.length
+                        ){
+                            span.innerText =
+                                meanings[num-1] + " ";
+                        }
+                    };
+                }
+
+                resultDiv.appendChild(span);
 
                 i += len;
                 found = true;
@@ -226,10 +289,10 @@ function translateText(){
             }
         }
 
-        if(!found) i++;
+        if(!found){
+            i++;
+        }
     }
-
-    resultDiv.innerHTML = result.join("");
 }
 
 /* ================== TTS ================== */
@@ -285,6 +348,18 @@ window.addEventListener("load", () => {
 });
 
 </script>
+<div id="meaningModal" class="modal">
+    <div class="modal-content">
+        <h2>📚 Chọn nghĩa</h2>
 
+        <div id="meaningOptions"></div>
+
+        <button class="tts-btn" onclick="closeMeaningModal()">
+            ⬅ Đóng
+        </button>
+    </div>
+</div>
+<audio id="bgMusic" loop></audio>
+<script src="music.js"></script>
 </body>
 </html>
