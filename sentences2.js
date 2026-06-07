@@ -101,7 +101,7 @@ let sentences2 = [
     { hanzi: "阿",       pinyin: "ā",             meaning: "a ( chữ lót trước tên )" },
 
     // ================= BÀI 7 =================
-    { hanzi: "家",       pinyin: "jiā",           meaning: "nhà" },
+    { hanzi: "家",       pinyin: "jiā",           meaning: "gia đình" },
     { hanzi: "有",       pinyin: "yǒu",           meaning: "có" },
     { hanzi: "他",       pinyin: "tā",            meaning: "anh ta" },
     { hanzi: "她",       pinyin: "tā",            meaning: "cô ta" },
