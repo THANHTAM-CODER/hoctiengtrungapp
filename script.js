@@ -4,6 +4,7 @@ let correct = 0;
 let wrong = 0;
 let answered = false;
 
+
 /**************** LOCAL STORAGE ****************/
 
 function saveWords() {
@@ -309,3 +310,30 @@ function createMeaningBox(word){
         </span>
     `;
 }
+//nhạc 
+window.addEventListener("load", () => {
+
+    const musicToggle = document.getElementById("musicToggle");
+    const bgMusic = document.getElementById("bgMusic");
+
+    console.log("musicToggle =", musicToggle);
+    console.log("bgMusic =", bgMusic);
+
+    if (!musicToggle || !bgMusic) {
+        console.log("❌ thiếu element");
+        return;
+    }
+
+    musicToggle.addEventListener("change", () => {
+
+        console.log("tick =", musicToggle.checked);
+
+        if (musicToggle.checked) {
+            bgMusic.play();
+        } else {
+            bgMusic.pause();
+            bgMusic.currentTime = 0;
+        }
+    });
+
+});
