@@ -12,6 +12,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="login.css">
 <title>Đăng nhập</title>
+
 </head>
 
 <body>
@@ -38,23 +39,12 @@ function login(){
     const p = document.getElementById("pass").value;
 
     if(u === USER && p === PASS){
-        localStorage.setItem("logged", "true");
+        sessionStorage.setItem("logged", "true");
         window.location.href = "menu.html";
     } else {
         document.getElementById("error").innerText = "Sai tài khoản hoặc mật khẩu!";
     }
 }
-
-window.onload = function(){
-    if(localStorage.getItem("logged") === "true"){
-        window.location.href = "menu.html";
-    }
-}
-document.addEventListener("keydown", function(event){
-    if(event.key === "Enter"){
-        login();
-    }
-});
 </script>
 <div class="footer-credit">
     Coder by: Nguyễn Thành Tâm

@@ -171,13 +171,23 @@ a{
 
 
 /* làm sạch toàn bộ dữ liệu 1 lần */
-sentences2.forEach(w => {
-    w.meaning = cleanMeaning(w.meaning);
-});
+function cleanMeaning(str){
+    if(!str) return "";
 
+    return str
+        .replace(/[（(][^）)]*[）)]/g, "") // xoá (abc)
+        .replace(/\s+/g, " ")
+        .trim();
+}
+if (typeof sentences2 !== "undefined") {
+    sentences2.forEach(w => {
+        w.meaning = cleanMeaning(w.meaning);
+    });
+}
 /* ================== TRANSLATE ================== */
 
 let selectedSpan = null;
+let selectedMeanings = {};
 
 function closeMeaningModal(){
     document.getElementById("meaningModal").style.display = "none";
@@ -224,6 +234,7 @@ function translateText(){
     resultDiv.innerHTML = "";
 
     let i = 0;
+    const wordCount = {};
 
     while(i < text.length){
 
@@ -236,24 +247,23 @@ function translateText(){
 
             if(word){
 
+                wordCount[part] = (wordCount[part] || 0) + 1;
+                const key = part + "_" + wordCount[part];
+
                 const meanings = word.meaning
                     .split(",")
                     .map(m =>
-                        m
-                        .replace(/[（(][^）)]*[）)]/g,"")
-                        .trim()
+                        m.replace(/[（(][^）)]*[）)]/g,"").trim()
                     )
                     .filter(Boolean);
 
                 const span = document.createElement("span");
 
-                if(meanings.length <= 1){
+                span.innerText =
+                    (selectedMeanings[key] || meanings[0]) + " ";
 
-                    span.innerText = meanings[0] + " ";
+                if(meanings.length > 1){
 
-                }else{
-
-                    span.innerText = meanings[0] + " ";
                     span.style.cursor = "pointer";
                     span.style.color = "#2563eb";
                     span.title = "Nhấn để đổi nghĩa";
@@ -263,11 +273,10 @@ function translateText(){
                         let menu = "Chọn nghĩa:\n\n";
 
                         meanings.forEach((m,index)=>{
-                            menu += (index+1) + ". " + m + "\n";
+                            menu += (index + 1) + ". " + m + "\n";
                         });
 
                         const choose = prompt(menu,"1");
-
                         const num = parseInt(choose);
 
                         if(
@@ -275,8 +284,12 @@ function translateText(){
                             num >= 1 &&
                             num <= meanings.length
                         ){
+
+                            selectedMeanings[key] =
+                                meanings[num - 1];
+
                             span.innerText =
-                                meanings[num-1] + " ";
+                                meanings[num - 1] + " ";
                         }
                     };
                 }

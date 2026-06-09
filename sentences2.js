@@ -104,15 +104,15 @@ let sentences2 = [
     // ================= BÀI 7 =================
     { hanzi: "家",       pinyin: "jiā",           meaning: "gia đình" },
     { hanzi: "有",       pinyin: "yǒu",           meaning: "có" },
-    { hanzi: "他",       pinyin: "tā",            meaning: "anh ta" },
-    { hanzi: "她",       pinyin: "tā",            meaning: "cô ta" },
+    { hanzi: "他",       pinyin: "tā",            meaning: "anh ấy" },
+    { hanzi: "她",       pinyin: "tā",            meaning: "cô ấy" },
     { hanzi: "爸爸",     pinyin: "bà ba",         meaning: "bố" },
     { hanzi: "妈妈",     pinyin: "mā ma",         meaning: "mẹ" },
     { hanzi: "哥哥",     pinyin: "gē ge",         meaning: "anh trai" },
     { hanzi: "弟弟",     pinyin: "dì di",         meaning: "em trai" },
     { hanzi: "姐姐",     pinyin: "jiě jie",       meaning: "chị gái" },
     { hanzi: "妹妹",     pinyin: "mèi mei",       meaning: "em gái" },
-    { hanzi: "国家",     pinyin: "guó jiā",       meaning: "quốc gia, đất nước" },
+    { hanzi: "国",       pinyin: "guó",           meaning: "quốc gia, đất nước" },
     { hanzi: "的",       pinyin: "de",            meaning: "của" }, 
     { hanzi: "老公",     pinyin: "lǎo gōng",      meaning: "chồng" },
     { hanzi: "老婆",     pinyin: "lǎo pó",        meaning: "vợ" },
@@ -203,7 +203,23 @@ let sentences2 = [
     { hanzi: "元",       pinyin: "yuán",         meaning: "tệ (tiền tệ văn viết: RMB chính thức)" },
     { hanzi: "角",       pinyin: "jiǎo",         meaning: "hào (văn viết: 1/10 yuan)" },
     { hanzi: "毛",       pinyin: "máo",          meaning: "hào (văn nói: 1/10 yuan)" },
-    { hanzi: "分",       pinyin: "fēn",          meaning: "xu (1/100 yuan)" }
+    { hanzi: "分",       pinyin: "fēn",          meaning: "xu (1/100 yuan)" },
+
+    // ================= BÀI 12 ================
+    { hanzi: "换",       pinyin: "huàn",          meaning: "đổi,thay" },
+    { hanzi: "小姐",     pinyin: "xiǎo jiě",      meaning: "cô gái" },
+    { hanzi: "先生",     pinyin: "xiānsheng",     meaning: "ông,ngài" },
+    { hanzi: "营业员",   pinyin: "yíngyè yuán",   meaning: "nhân viên bán hàng" },
+    { hanzi: "越南盾",   pinyin: "yuènán dùn",    meaning: "đồng (đơn vị tiền tệ của việt nam)" },
+    { hanzi: "人民币",   pinyin: "rénmínbi",      meaning: "nhân dân tệ (tiền tệ của Trung Quốc)" },
+    { hanzi: "等",       pinyin: "děng",          meaning: "đợi" },
+    { hanzi: "数",       pinyin: "shǔ",           meaning: "đếm" },
+    { hanzi: "一会儿",   pinyin: "yíhuìr",        meaning: "một lát" },
+    { hanzi: "图书馆",   pinyin: "túshūguǎn",     meaning: "thư viện" },
+    { hanzi: "港币",     pinyin: "Gǎngbì",        meaning: "đô la Hồng Kông (tiền tệ của Hong Kong)" },
+    { hanzi: "日元",     pinyin: "Rìyuán",        meaning: "yên Nhật (Tiền tệ của nhật)" },
+    { hanzi: "欧元",     pinyin: "Ōuyuán",        meaning: "euro (EUR)" },
+    { hanzi: "美元",     pinyin: "Měiyuán",       meaning: "đô la Mỹ (Tiền tệ của Mỹ)" }
 
 ];  
 
