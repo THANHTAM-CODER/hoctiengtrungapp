@@ -196,7 +196,7 @@ button{
 }
 
 .lesson-card{
-    padding:15px 20px;
+    padding:5px 20px;
 
     background:white;
 
@@ -520,6 +520,7 @@ button{
                 <option value="10">Bài 10</option>
                 <option value="11">Bài 11</option>
                 <option value="12">Bài 12</option>
+                <option value="13">Bài 13</option>
             </select>
 
             <span class="range-text">→</span>
@@ -536,7 +537,8 @@ button{
                 <option value="9">Bài 9</option>
                 <option value="10">Bài 10</option>
                 <option value="11">Bài 11</option>
-                <option value="12" selected>Bài 12</option>
+                <option value="12">Bài 12</option>
+                <option value="13" selected>Bài 13</option>
             </select>
 
         </div>
@@ -652,15 +654,26 @@ const selected =
     );
 
     selected.forEach((word,index)=>{
+        const hardMode =
+            document.getElementById("hardMode").checked;
 
-        let options=[word.meaning];
+        const questionType =
+            Math.random() < 0.5 ? "meaning" : "pinyin";
+        let options = [
+            hardMode ? word.hanzi : word.meaning
+];
 
         while(options.length<4){
 
-            const random=
+            const randomWord =
                 sourceWords[
                     Math.floor(Math.random()*sourceWords.length)
-                ].meaning;
+                ];
+
+            const random =
+                hardMode
+                    ? randomWord.hanzi
+                    : randomWord.meaning;
 
             if(!options.includes(random)){
                 options.push(random);
@@ -675,9 +688,19 @@ const selected =
         <div class="question">
 
             <div class="hanzi">
-                ${index+1}. Chữ
-                "<span class="hanzi-word">${word.hanzi}</span>"
-                có nghĩa là gì?
+               ${
+                hardMode
+                ?
+                (
+                    questionType === "meaning"
+                    ?
+                    `${index+1}. “<span class="hanzi-word">${word.meaning}</span>” 对应哪个汉字？`
+                    :
+                    `${index+1}. “<span class="hanzi-word">${word.pinyin}</span>” 对应哪个汉字？`
+                )
+                :
+                `${index+1}. Chữ "<span class="hanzi-word">${word.hanzi}</span>" có nghĩa là gì?`
+}
             </div>
 
             ${options.map(opt=>`
@@ -708,15 +731,21 @@ function submitQuiz(){
 
         if(selected){
 
-            if(selected.value === q.meaning){
+            const hardMode =
+                document.getElementById("hardMode").checked;
+
+            const correctAnswer =
+                hardMode ? q.hanzi : q.meaning;
+
+            if(selected.value === correctAnswer){
                 score++;
                 answerDiv.innerHTML = `<span class="correct">✔ Đúng</span>`;
             }else{
-                answerDiv.innerHTML = `<span class="wrong">✘ Sai | Đáp án: ${q.meaning}</span>`;
+                answerDiv.innerHTML = `<span class="wrong">✘ Sai | Đáp án: ${hardMode ? q.hanzi : q.meaning}</span>`;
             }
 
         }else{
-            answerDiv.innerHTML = `<span class="wrong">Chưa chọn | Đáp án: ${q.meaning}</span>`;
+            answerDiv.innerHTML = `<span class="wrong">Chưa chọn | Đáp án: ${hardMode ? q.hanzi : q.meaning}</span>`;
         }
 
     });
@@ -795,19 +824,21 @@ function startTimer(minutes){
     },1000);
 }
 function startQuiz(){
-
     document.getElementById("startScreen").style.display="none";
-
     document.getElementById("quizContainer").style.display="block";
 
     generateQuiz();
 
-    if(document.getElementById("enableTimer").checked){
+    if(document.getElementById("hardMode").checked){
+
+        startTimer(5);
+
+    }else if(document.getElementById("enableTimer").checked){
 
         const minutes =
             parseFloat(
                 document.getElementById("timerSelect").value
-        );
+            );
 
         startTimer(minutes);
 
@@ -823,11 +854,14 @@ function goHomePage(){
 }
 function openGuide(){
     alert(
-        "📖 HƯỚNG DẪN\n\n" +
+        "📖 HƯỚNG DẪN\n" +
         "1. Chọn phạm vi bài học hoặc toàn bộ từ vựng\n" +
         "2. Nhấn 'Bắt đầu để vào làm bài'\n" +
         "3. Chọn đáp án đúng\n" +
-        "4. Nhấn 'Nộp bài' để xem điểm\n"
+        "4. Nhấn 'Nộp bài' để xem điểm và đáp án đúng sai\n" +
+        "4. Nhấn 'Đề mới' để làm đề mới\n" +
+        "6 Nhấn 'Đếm thời gian' để có thể thêm thời gian khi làm\n" +
+        "7. Nhấn 'Độ khó cao' để thi khó hơn với thời gian mặc định là 5 phút và đề + đáp án đều là chữ hán\n"
     );
 }
 
@@ -889,11 +923,16 @@ function newQuiz(){
         behavior: "smooth"
     });
 
-    if(document.getElementById("enableTimer").checked){
+    if(document.getElementById("hardMode").checked){
 
-        const minutes = parseFloat(
-            document.getElementById("timerSelect").value
-        );
+        startTimer(5);
+
+    }else if(document.getElementById("enableTimer").checked){
+
+        const minutes =
+            parseFloat(
+                document.getElementById("timerSelect").value
+            );
 
         startTimer(minutes);
     }

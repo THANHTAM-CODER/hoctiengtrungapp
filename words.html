@@ -181,6 +181,7 @@ onkeydown="if(event.key==='Enter') searchWord()">
 <button id="deleteBtn" onclick="clearSearch()">🗑 Xóa</button>
 <button id="backBtn" onclick="goHome()">🏠 Trang Chủ</button>
 <button onclick="showHelp()">📖 Hướng dẫn</button>
+<button onclick="exportExcel()">📊 Xuất Excel</button>
 
 <div id="result"></div>
 
@@ -191,6 +192,7 @@ onkeydown="if(event.key==='Enter') searchWord()">
 <script>
 
 let searchMode = "hanzi";
+let found = [];
 
 /* đổi mode */
 function toggleMode() {
@@ -224,16 +226,34 @@ function searchWord() {
         return;
     }
 
-   let found = sentences2.filter(item => {
+    found = [];
 
-    if (searchMode === "hanzi") {
-        return item.hanzi === input;
-    }
+    /* tìm theo bài B1, B2, B13... */
+    const lessonMatch = input.match(/^b(\d+)$/i);
 
-    return (item.meaning || "")
-        .toLowerCase()
-        .includes(input);
-});
+    if(lessonMatch){
+
+        const lessonNumber =
+            parseInt(lessonMatch[1]);
+
+        found = sentences2.filter(item =>
+            item.lesson === lessonNumber
+        );
+
+}else{
+
+    found = sentences2.filter(item => {
+
+        if (searchMode === "hanzi") {
+            return item.hanzi === input;
+        }
+
+        return (item.meaning || "")
+            .toLowerCase()
+            .includes(input);
+    });
+
+}
 
     if (found.length === 0) {
         resultDiv.innerHTML = "❌ Không tìm thấy từ cần tìm !";
@@ -309,9 +329,37 @@ window.addEventListener("load", () => {
         );
     }
 });
+function exportExcel(){
 
+    if(found.length === 0){
+        alert("Không có dữ liệu để xuất!");
+        return;
+    }
+
+    const data = found.map(item => ({
+        "Hán tự": item.hanzi,
+        "Nghĩa": item.meaning,
+        "Pinyin": item.pinyin
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+
+    const wb = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(
+        wb,
+        ws,
+        "TuVung"
+    );
+
+    XLSX.writeFile(
+        wb,
+        "TuVungTiengTrung.xlsx"
+    );
+}
 </script>
 <audio id="bgMusic" loop></audio>
 <script src="music.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </body>
 </html>

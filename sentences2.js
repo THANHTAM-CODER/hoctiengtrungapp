@@ -218,7 +218,26 @@ let sentences2 = [
     { lesson: 12, hanzi: "港币",     pinyin: "Gǎngbì",        meaning: "đô la Hồng Kông (tiền tệ của Hong Kong)" },
     { lesson: 12, hanzi: "日元",     pinyin: "Rìyuán",        meaning: "yên Nhật (Tiền tệ của nhật)" },
     { lesson: 12, hanzi: "欧元",     pinyin: "Ōuyuán",        meaning: "euro (EUR)" },
-    { lesson: 12, hanzi: "美元",     pinyin: "Měiyuán",       meaning: "đô la Mỹ (Tiền tệ của Mỹ)" }
+    { lesson: 12, hanzi: "美元",     pinyin: "Měiyuán",       meaning: "đô la Mỹ (Tiền tệ của Mỹ)" },
+
+// ================= BÀI 13 ================
+    { lesson: 13, hanzi: "办公室", pinyin: "bàngōngshì", meaning: "văn phòng" },
+    { lesson: 13, hanzi: "职员",   pinyin: "zhíyuán",   meaning: "nhân viên" },
+    { lesson: 13, hanzi: "呢",     pinyin: "ne",        meaning: "(trợ từ nghi vấn, còn... thì sao?)" },
+    { lesson: 13, hanzi: "楼",     pinyin: "lóu",       meaning: "tòa nhà; tầng lầu" },
+    { lesson: 13, hanzi: "房间",   pinyin: "fángjiān",  meaning: "phòng" },
+    { lesson: 13, hanzi: "知道",   pinyin: "zhīdào",    meaning: "biết" },
+    { lesson: 13, hanzi: "电话",   pinyin: "diànhuà",   meaning: "điện thoại" },
+    { lesson: 13, hanzi: "打电话", pinyin: "dǎ diànhuà", meaning: "gọi điện thoại" },
+    { lesson: 13, hanzi: "接电话", pinyin: "jiē diànhuà", meaning: "nghe điện thoại" },
+    { lesson: 13, hanzi: "手机",   pinyin: "shǒujī",      meaning: "điện thoại di động" },
+    { lesson: 13, hanzi: "号",     pinyin: "hào",         meaning: "số (số nhà, số phòng, số lầu...)" },
+    { lesson: 13, hanzi: "号码",   pinyin: "hàomǎ",       meaning: "mã số; số hiệu; số điện thoại" },
+    { lesson: 13, hanzi: "门",     pinyin: "mén",         meaning: "cửa; cổng" },
+    { lesson: 13, hanzi: "找",     pinyin: "zhǎo",        meaning: "tìm; kiếm" },
+    { lesson: 13, hanzi: "在",     pinyin: "zài",        meaning: "ở,đang" }
+
+
 ];  
 
   // ================= HÀM TỰ ĐỔI SỐ  ================
