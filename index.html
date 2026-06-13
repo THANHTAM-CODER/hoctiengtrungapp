@@ -3,9 +3,19 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="login.css?v=3">
+
+<!-- ICON APP -->
+<link rel="icon" type="image/png" href="logo.png?v=3">
+
+<link rel="apple-touch-icon" href="logo.png?v=3">
+
+
+<!-- CSS -->
+<link rel="stylesheet" href="login.css?v=4">
+
 
 <title>Đăng nhập</title>
 
@@ -19,7 +29,7 @@
 
 <video class="bg-video" autoplay muted loop playsinline>
 
-    <source src="shiranui1.mp4" type="video/mp4">
+    <source src="shiranui1.mp4?v=3" type="video/mp4">
 
 </video>
 
@@ -52,7 +62,8 @@
 
 
 
-<!-- LOGIN ẨN BAN ĐẦU -->
+
+<!-- LOGIN -->
 
 <div class="box" id="loginBox">
 
@@ -63,7 +74,7 @@
 
         <video autoplay loop muted playsinline>
 
-            <source src="nhanvat.mp4" type="video/mp4">
+            <source src="nhanvat.mp4?v=3" type="video/mp4">
 
         </video>
 
@@ -92,7 +103,7 @@
 
     <button onclick="login()">
 
-        Vào trang
+        Đăng nhập
 
     </button>
 
@@ -117,6 +128,8 @@ Coder by: Nguyễn Thành Tâm
 
 
 
+
+
 <script>
 
 
@@ -135,9 +148,11 @@ function startLogin(){
 
 
 
+
 const USER="admin";
 
 const PASS="1234";
+
 
 
 
@@ -150,13 +165,14 @@ const p=document.getElementById("pass").value;
 
 
 
+
 if(u===USER && p===PASS){
 
 
 sessionStorage.setItem("logged","true");
 
 
-window.location.href="menu.html";
+window.location.href="menu.html?v=3";
 
 
 }
@@ -176,6 +192,7 @@ document.getElementById("error").innerText=
 
 
 </script>
+
 
 
 
