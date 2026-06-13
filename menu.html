@@ -307,41 +307,71 @@ input[type="range"]::-webkit-slider-thumb:hover{
 <div id="hintArrow">
 👉Nhấn đi
 </div>
+<div class="assistant">
+
+    <div class="talk" id="talk">
+        Xin chào 😄
+    </div>
+
+    <div class="avatar-circle">
+        <video autoplay loop muted playsinline>
+            <source src="nhanvat.mp4" type="video/mp4">
+        </video>
+    </div>
+
+</div>
 <div class="container">
 
     <h1>📚 学汉语</h1>
 
     <button class="menu-btn words"
-        onclick="location.href='words.html'">
-        📚 Quản lý từ vựng
+        onmouseenter="showTalk('Ồ học từ mới à? Đừng học xong rồi quên nha 😂')"
+        onmouseleave="hideTalk()"
+        onclick="location.href='words.html'">\
+    📚 Quản lý từ vựng
+
     </button>
 
     <button class="menu-btn sentence"
+        onmouseenter="showTalk('Ghép câu cẩn thận nha, đừng đảo chữ lung tung 😏')"
+        onmouseleave="hideTalk()"
         onclick="location.href='page2.html'">
         📝 Ghép câu
     </button>
 
     <button class="menu-btn random"
+        onmouseenter="showTalk('Random từ hả? Hên xui đó nha 🤭')"
+        onmouseleave="hideTalk()"
         onclick="location.href='ramdom.html'">
         🎲 Random Từ
     </button>
 
     <button class="menu-btn write"
+        onmouseenter="showTalk('Luyện viết à? Viết cho đẹp nha, chữ xấu tôi chê đó 😆')"
+        onmouseleave="hideTalk()"
         onclick="location.href='write.html'">
         ✍️ Luyện viết
     </button>
 
     <button class="menu-btn test"
+        onmouseenter="showTalk('Vào kiểm tra hả? Chuẩn bị bị soi điểm nha 😂')"
+        onmouseleave="hideTalk()"
         onclick="location.href='test.html'">
         ✍️ Đề thi trắc nghiệm
     </button>
     <div class="bottom-buttons">
 
-    <button class="logout-btn" onclick="logout()">
+    <button class="logout-btn" 
+    onmouseenter="showTalk('Thoát rồi à gà vl 😂')"
+    onmouseleave="hideTalk()"
+    onclick="logout()">
         Đăng xuất
     </button>
 
-    <button class="setting-btn" onclick="toggleSettings()">
+    <button class="setting-btn" 
+    onmouseenter="showTalk('Thêm tí nhạc cho thoải mái 😂')"
+    onmouseleave="hideTalk()"
+    onclick="toggleSettings()">
         Nhạc
     </button>
 
@@ -465,11 +495,30 @@ document.addEventListener("keydown", function(event){
         login();
     }
 });
+
+
+function showTalk(text){
+
+    let talk=document.getElementById("talk");
+
+    talk.innerHTML=text;
+
+    talk.classList.add("show");
+
+}
+
+
+function hideTalk(){
+
+    let talk=document.getElementById("talk");
+
+    talk.classList.remove("show");
+
+}
 </script>
 </script>
 <audio id="bgMusic" loop></audio>
 <script src="music.js"></script>
 </body>
 </html>
-</body>
-</html>
+

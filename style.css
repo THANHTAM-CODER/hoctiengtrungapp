@@ -396,3 +396,120 @@ textarea{
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+/* AVATAR GÓC TRÁI */
+
+.assistant{
+
+    position:fixed;
+
+    left:15px;
+    top:15px;
+
+    z-index:9999;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+}
+
+
+/* vòng tròn avatar */
+
+.avatar-circle{
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    border:4px solid rgba(255,255,255,0.8);
+
+    background:white;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.35);
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+
+.avatar-circle:hover{
+
+    transform:scale(1.1);
+
+}
+
+
+/* video nhân vật */
+
+.avatar-circle video{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+
+
+/* bong bóng chat */
+.talk{
+
+    max-width:220px;
+
+    background:white;
+
+    padding:12px 15px;
+
+    border-radius:20px;
+
+    margin-bottom:10px;
+
+    font-size:15px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
+
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(10px);
+
+    transition:0.3s;
+
+}
+
+
+/* hiện lời nói */
+
+.talk.show{
+
+    opacity:1;
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+
+@keyframes floatTalk{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-5px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
