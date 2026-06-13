@@ -1,24 +1,43 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<head>
 
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-<!-- ICON APP -->
-<link rel="icon" type="image/png" href="logo.png?v=3">
+<title>Học Tiếng Trung</title>
 
-<link rel="apple-touch-icon" href="logo.png?v=3">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json?v=2">
+
+
+<!-- iOS ICON -->
+<link rel="apple-touch-icon" sizes="180x180" href="logo.png?v=2">
+
+
+<!-- iOS APP MODE -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="apple-mobile-web-app-title" content="Học Tiếng Trung">
+
+
+
+<!-- ICON TRÌNH DUYỆT -->
+<link rel="icon" type="image/png" href="logo.png?v=2">
+
 
 
 <!-- CSS -->
-<link rel="stylesheet" href="login.css?v=4">
+<link rel="stylesheet" href="login.css?v=5">
 
 
-<title>Đăng nhập</title>
-
+</head>
 </head>
 
 
@@ -27,7 +46,14 @@
 
 <!-- VIDEO NỀN -->
 
-<video class="bg-video" autoplay muted loop playsinline>
+<video 
+class="bg-video"
+autoplay
+muted
+loop
+playsinline
+webkit-playsinline
+preload="auto">
 
     <source src="shiranui1.mp4?v=3" type="video/mp4">
 
