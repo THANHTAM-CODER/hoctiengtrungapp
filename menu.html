@@ -374,8 +374,10 @@ input[type="range"]::-webkit-slider-thumb:hover{
     onclick="toggleSettings()">
         Nhạc
     </button>
-
-</div>
+    <button class="shiranui-btn" onclick="toggleShiranuiBox()">
+    Shiranui
+    </button>
+    </div>
     <div id="settingsBox" class="settings-box">
 
     <div class="setting-row">
@@ -396,6 +398,21 @@ input[type="range"]::-webkit-slider-thumb:hover{
         <option value="musicall/music5.mp3">Bài 5</option>
     </select>
 </div>
+</div>
+<div id="shiranuiBox" class="settings-box">
+
+
+<div class="setting-row">
+
+<span>👧 Hiện nhân vật</span>
+
+<input 
+type="checkbox"
+id="shiranuiToggle">
+
+</div>
+
+
 </div>
 <script>
 function logout(){
@@ -515,6 +532,79 @@ function hideTalk(){
     talk.classList.remove("show");
 
 }
+function toggleShiranuiBox(){
+
+    const box =
+    document.getElementById("shiranuiBox");
+
+    const btn =
+    document.querySelector(".shiranui-btn");
+
+
+    if(box.style.display==="block"){
+
+        box.style.display="none";
+
+        btn.classList.remove("active");
+
+    }
+    else{
+
+        box.style.display="block";
+
+        btn.classList.add("active");
+
+    }
+
+}
+document.addEventListener("DOMContentLoaded", () => {
+const shiranuiToggle = document.getElementById("shiranuiToggle");
+const shiranui = document.querySelector(".assistant");
+const talk = document.getElementById("talk");
+
+const onMessages = [
+    "Cảm ơn đã cho tôi ra khỏi đây 😭",
+    "Cuối cùng cũng được thở rồi 😆",
+    "Tự do rồi!! 🤩"
+];
+
+const offMessages = [
+    "Dám nhốt tôi sao 😠",
+    "Tôi sẽ quay lại đó!",
+    "Không thoát tôi được đâu 😤"
+];
+
+if (shiranuiToggle && shiranui) {
+
+    shiranui.style.display = "none";
+
+    shiranuiToggle.addEventListener("change", () => {
+
+        if (shiranuiToggle.checked) {
+
+            shiranui.style.display = "flex";
+
+            const msg = onMessages[Math.floor(Math.random() * onMessages.length)];
+
+            talk.innerHTML = msg;
+            talk.classList.add("show");
+
+        } else {
+
+            const msg = offMessages[Math.floor(Math.random() * offMessages.length)];
+
+            talk.innerHTML = msg;
+            talk.classList.add("show");
+
+            setTimeout(() => {
+                shiranui.style.display = "none";
+                talk.classList.remove("show");
+            }, 1200);
+        }
+
+    });
+}
+});
 </script>
 </script>
 <audio id="bgMusic" loop></audio>

@@ -406,8 +406,7 @@ textarea{
     top:15px;
 
     z-index:9999;
-
-    display:flex;
+    display:none;  
     flex-direction:column;
     align-items:center;
 
@@ -418,8 +417,8 @@ textarea{
 
 .avatar-circle{
 
-    width:80px;
-    height:80px;
+    width:120px;
+    height:120px;
 
     border-radius:50%;
 
@@ -511,5 +510,54 @@ textarea{
     100%{
         transform:translateY(0);
     }
+
+}
+.shiranui-btn{
+
+    width:130px;
+    height:55px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:18px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+
+/* bật Shiranui */
+.shiranui-btn.active{
+
+    animation:shiranuiGlow 1.2s infinite alternate;
+
+}
+
+
+@keyframes shiranuiGlow{
+
+from{
+
+box-shadow:
+0 0 15px #3b82f6,
+0 0 30px #3b82f6;
+
+}
+
+
+to{
+
+box-shadow:
+0 0 35px #3b82f6,
+0 0 70px #3b82f6;
+
+}
 
 }
