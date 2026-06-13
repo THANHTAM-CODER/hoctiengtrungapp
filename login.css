@@ -4,115 +4,447 @@
     box-sizing:border-box;
 }
 
+
 body{
+
     height:100vh;
-    display:grid;
-    place-items:center;
+    overflow:hidden;
 
-    font-family:Arial, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    font-family:Arial,sans-serif;
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #0f2027,
+        #203a43,
+        #2c5364
+    );
+
+
 }
 
-/* LOGIN BOX */
-.box{
-    width:320px;
-    max-width:90%;
 
-    background:white;
-    padding:30px;
 
-    border-radius:15px;
-    text-align:center;
+/* ánh sáng nền */
 
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+body::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    background:#00c6ff;
+
+    border-radius:50%;
+
+    filter:blur(150px);
+
+    top:-150px;
+    left:-150px;
+
+    opacity:.4;
+
 }
 
-/* INPUT */
-.box input{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
 
-    border:1px solid #ccc;
-    border-radius:10px;
 
-    font-size:16px;
-}
+body::after{
 
-/* BUTTON */
-.box button{
-    width:100%;
-    padding:12px;
+    content:"";
 
-    border:none;
-    border-radius:10px;
+    position:absolute;
+
+    width:400px;
+    height:400px;
 
     background:#2563eb;
+
+    border-radius:50%;
+
+    filter:blur(130px);
+
+    bottom:-100px;
+    right:-100px;
+
+    opacity:.5;
+
+}
+
+
+
+
+/* tiêu đề */
+
+.title{
+
+    position:absolute;
+
+    top:40px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+
     color:white;
 
-    font-size:16px;
+    font-size:35px;
 
-    cursor:pointer;
+    font-weight:bold;
+
+
+    text-shadow:
+
+    0 0 15px #00eaff;
+
 }
 
-.box button:hover{
-    background:#1d4ed8;
+
+
+
+/* BOX LOGIN */
+.box{
+
+    position:relative;
+    z-index:5;
+
+
+    width:330px;
+
+    padding:35px 30px 30px;
+
+
+    /* trong suốt hơn */
+    background:rgba(255,255,255,0.08);
+
+
+    /* làm mờ nền phía sau */
+    backdrop-filter:blur(8px);
+
+
+    border-radius:25px;
+
+
+    text-align:center;
+
+
+    border:1px solid rgba(255,255,255,.25);
+
+
+    box-shadow:
+
+    0 20px 50px rgba(0,0,0,.35);
+
+
+    animation:float 4s infinite ease-in-out;
+
 }
+
+
+
+
+/* mặt cười */
+
+
+/* AVATAR NHÂN VẬT */
+.avatar{
+
+    width:120px;
+    height:120px;
+
+
+    margin:-80px auto 15px;
+
+
+    border-radius:50%;
+
+
+    overflow:hidden;
+
+
+    border:4px solid white;
+
+
+    box-shadow:
+
+    0 0 30px #00eaff;
+
+
+}
+
+
+.avatar video{
+
+
+    width:100%;
+    height:100%;
+
+
+    object-fit:cover;
+
+
+}
+h2{
+
+color:white;
+
+margin-bottom:15px;
+
+}
+
+
+
+
+input{
+
+
+width:100%;
+
+
+padding:13px;
+
+
+margin:8px 0;
+
+
+border:none;
+
+
+border-radius:12px;
+
+
+font-size:15px;
+
+outline:none;
+
+}
+
+
+
+
+button{
+
+
+width:100%;
+
+
+padding:13px;
+
+
+margin-top:10px;
+
+
+border:none;
+
+
+border-radius:12px;
+
+
+background:#2563eb;
+
+
+color:white;
+
+
+font-size:16px;
+
+
+cursor:pointer;
+
+
+}
+
+
+
+button:hover{
+
+
+background:#1d4ed8;
+
+transform:scale(1.03);
+
+}
+
+
+
+
 
 #error{
-    color:red;
-    margin-top:10px;
-}
-.title{
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
 
-    font-size: 40px;
-    font-weight: bold;
+color:#ff6b6b;
 
-    color: white;
-    text-shadow: 0 5px 20px rgba(0,0,0,0.6);
-}
-body{
-    position: relative;
-}
-body{
-    background: linear-gradient(270deg,#1e3c72,#2a5298,#00c6ff);
-    background-size: 600% 600%;
-    animation: moveBg 10s ease infinite;
 }
 
-@keyframes moveBg{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-}
-.title{
-    font-size: 42px;
-    color: white;
-    text-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff;
-    animation: glow 2s infinite alternate;
-}
 
-@keyframes glow{
-    from{opacity:0.7;}
-    to{opacity:1;}
-}
+
+
+
 .footer-credit{
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
 
-    color: white;
-    font-size: 14px;
 
-    opacity: 0.8;
+position:fixed;
 
-    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 
-    z-index: 999;
+bottom:10px;
+
+
+left:50%;
+
+
+transform:translateX(-50%);
+
+
+
+color:white;
+
+
+opacity:.8;
+}
+/* VIDEO NỀN */
+
+.bg-video{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+
+    width:100vw;
+    height:100vh;
+
+
+    object-fit:cover;
+
+
+    z-index:-2;
+
+}
+
+
+
+/* phủ tối nhẹ để login nổi */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+
+    background:
+    rgba(0,0,0,.35);
+
+
+    z-index:-1;
+
+}
+/* Ẩn login lúc đầu */
+
+#loginBox{
+
+    display:none;
+
+}
+
+
+
+/* màn hình bắt đầu */
+
+.welcome{
+
+
+    height:100vh;
+
+    width:100%;
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    position:relative;
+
+    z-index:5;
+
+}
+
+
+
+/* nút bắt đầu */
+
+
+.start-btn{
+
+
+    margin-top:40px;
+
+
+    width:220px;
+
+    padding:15px;
+
+
+
+    border:none;
+
+
+    border-radius:30px;
+
+
+
+    background:
+
+    rgba(37,99,235,.85);
+
+
+
+    color:white;
+
+
+    font-size:22px;
+
+
+
+    cursor:pointer;
+
+
+
+    box-shadow:
+
+    0 0 30px #00eaff;
+
+
+
+    transition:.3s;
+
+
+}
+
+
+
+.start-btn:hover{
+
+
+    transform:scale(1.1);
+
+
+    background:#1d4ed8;
+
 }

@@ -1,53 +1,183 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
 
-<meta name="theme-color" content="#b22222">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="login.css">
+
 <title>Đăng nhập</title>
 
 </head>
 
+
 <body>
 
-<div class="title">你好 - 请进说汉语</div>
 
-<div class="box">
+<!-- VIDEO NỀN -->
+
+<video class="bg-video" autoplay muted loop playsinline>
+
+    <source src="shiranui1.mp4" type="video/mp4">
+
+</video>
+
+
+
+
+<!-- MÀN HÌNH BAN ĐẦU -->
+
+<div class="welcome" id="welcome">
+
+
+    <div class="title">
+
+        你好 - 请进说汉语
+
+    </div>
+
+
+
+    <button class="start-btn" onclick="startLogin()">
+
+        Bắt đầu
+
+    </button>
+
+
+</div>
+
+
+
+
+
+<!-- LOGIN ẨN BAN ĐẦU -->
+
+<div class="box" id="loginBox">
+
+
+
+    <div class="avatar">
+
+
+        <video autoplay loop muted playsinline>
+
+            <source src="nhanvat.mp4" type="video/mp4">
+
+        </video>
+
+
+    </div>
+
+
+
     <h2>Đăng nhập</h2>
 
-    <input type="text" id="user" placeholder="Tên đăng nhập">
-    <input type="password" id="pass" placeholder="Mật khẩu">
 
-    <button onclick="login()">Vào trang</button>
+
+    <input 
+    type="text"
+    id="user"
+    placeholder="Tên đăng nhập">
+
+
+
+    <input
+    type="password"
+    id="pass"
+    placeholder="Mật khẩu">
+
+
+
+    <button onclick="login()">
+
+        Vào trang
+
+    </button>
+
+
 
     <p id="error"></p>
+
+
 </div>
+
+
+
+
+
+<div class="footer-credit">
+
+Coder by: Nguyễn Thành Tâm
+
+</div>
+
+
+
+
 
 <script>
-const USER = "admin";
-const PASS = "1234";
+
+
+function startLogin(){
+
+
+    document.getElementById("welcome").style.display="none";
+
+
+    document.getElementById("loginBox").style.display="block";
+
+
+}
+
+
+
+
+
+const USER="admin";
+
+const PASS="1234";
+
+
 
 function login(){
-    const u = document.getElementById("user").value;
-    const p = document.getElementById("pass").value;
 
-    if(u === USER && p === PASS){
-        sessionStorage.setItem("logged", "true");
-        window.location.href = "menu.html";
-    } else {
-        document.getElementById("error").innerText = "Sai tài khoản hoặc mật khẩu!";
-    }
+
+const u=document.getElementById("user").value;
+
+const p=document.getElementById("pass").value;
+
+
+
+if(u===USER && p===PASS){
+
+
+sessionStorage.setItem("logged","true");
+
+
+window.location.href="menu.html";
+
+
 }
+
+else{
+
+
+document.getElementById("error").innerText=
+"Sai tài khoản hoặc mật khẩu!";
+
+
+}
+
+
+}
+
+
+
 </script>
-<div class="footer-credit">
-    Coder by: Nguyễn Thành Tâm
-</div>
+
+
+
 </body>
 </html>
