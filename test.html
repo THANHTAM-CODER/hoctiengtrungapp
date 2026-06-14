@@ -675,6 +675,153 @@ function shuffle(arr){
     return [...arr].sort(()=>Math.random()-0.5);
 }
 
+function shiranuiSay(text) {
+    const talk = document.getElementById("talk");
+
+    if (!talk || !text) {
+        return;
+    }
+
+    talk.innerHTML = text;
+    talk.classList.add("show");
+}
+
+function isNumericMeaning(word) {
+    return /^\d+$/.test(String(word.meaning || "").trim());
+}
+
+function normalizeText(text) {
+    return String(text || "")
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, " ");
+}
+
+function selectQuizWords(sourceWords, totalCount) {
+    const numericWords = sourceWords.filter(isNumericMeaning);
+    const regularWords = sourceWords.filter(word => !isNumericMeaning(word));
+
+    let numericTarget = 0;
+
+    if (totalCount >= 15 && numericWords.length > 0) {
+        numericTarget = Math.min(
+            numericWords.length,
+            Math.random() < 0.5 ? 2 : 3
+        );
+    }
+
+    const regularTarget = Math.max(0, totalCount - numericTarget);
+
+    const selectedNumeric = shuffle(numericWords).slice(0, numericTarget);
+    const selectedRegular = shuffle(regularWords).slice(0, regularTarget);
+
+    return shuffle([...selectedNumeric, ...selectedRegular]).slice(0, totalCount);
+}
+
+function scoreDistractor(correctWord, candidateWord, hardMode) {
+    if (candidateWord === correctWord) {
+        return -Infinity;
+    }
+
+    let score = 0;
+
+    if (candidateWord.lesson && correctWord.lesson && candidateWord.lesson === correctWord.lesson) {
+        score += 6;
+    }
+
+    if (isNumericMeaning(correctWord) && isNumericMeaning(candidateWord)) {
+        const correctNumber = parseInt(correctWord.meaning, 10);
+        const candidateNumber = parseInt(candidateWord.meaning, 10);
+        const distance = Math.abs(correctNumber - candidateNumber);
+        score += Math.max(0, 8 - distance);
+    }
+
+    if (!hardMode) {
+        const correctMeaning = normalizeText(correctWord.meaning);
+        const candidateMeaning = normalizeText(candidateWord.meaning);
+
+        if (correctMeaning && candidateMeaning) {
+            if (correctMeaning === candidateMeaning) {
+                score += 8;
+            }
+
+            const correctParts = correctMeaning.split(" ");
+            const candidateParts = candidateMeaning.split(" ");
+
+            if (correctParts[0] && candidateParts[0] && correctParts[0] === candidateParts[0]) {
+                score += 4;
+            }
+
+            const commonPrefixLength = (() => {
+                let index = 0;
+                while (
+                    index < correctMeaning.length &&
+                    index < candidateMeaning.length &&
+                    correctMeaning[index] === candidateMeaning[index]
+                ) {
+                    index++;
+                }
+                return index;
+            })();
+
+            score += Math.min(commonPrefixLength, 5);
+
+            const lengthGap = Math.abs(correctMeaning.length - candidateMeaning.length);
+            score += Math.max(0, 4 - lengthGap);
+        }
+    } else {
+        const correctPinyin = normalizeText(correctWord.pinyin);
+        const candidatePinyin = normalizeText(candidateWord.pinyin);
+
+        if (correctPinyin && candidatePinyin) {
+            if (correctPinyin === candidatePinyin) {
+                score += 6;
+            }
+
+            const lengthGap = Math.abs(correctPinyin.length - candidatePinyin.length);
+            score += Math.max(0, 3 - lengthGap);
+        }
+    }
+
+    return score;
+}
+
+function buildDistractors(correctWord, sourceWords, hardMode, count) {
+    const scoredCandidates = sourceWords
+        .filter(candidate => candidate !== correctWord)
+        .map(candidate => ({
+            candidate,
+            score: scoreDistractor(correctWord, candidate, hardMode)
+        }))
+        .sort((left, right) => {
+            if (right.score !== left.score) {
+                return right.score - left.score;
+            }
+
+            return Math.random() - 0.5;
+        });
+
+    const uniqueValues = [];
+    const seenValues = new Set();
+
+    for (const item of scoredCandidates) {
+        const value = hardMode ? item.candidate.hanzi : item.candidate.meaning;
+
+        if (seenValues.has(value)) {
+            continue;
+        }
+
+        seenValues.add(value);
+        uniqueValues.push(value);
+
+        if (uniqueValues.length >= count) {
+            break;
+        }
+    }
+
+    return uniqueValues;
+}
+
 function generateQuiz(){
 
     questions=[];
@@ -702,11 +849,7 @@ if(!document.getElementById("allLessons").checked){
 );
 }
 
-const selected =
-    shuffle(sourceWords).slice(
-        0,
-        Math.min(20, sourceWords.length)
-    );
+const selected = selectQuizWords(sourceWords, Math.min(20, sourceWords.length));
 
     selected.forEach((word,index)=>{
         const hardMode =
@@ -716,13 +859,30 @@ const selected =
             Math.random() < 0.5 ? "meaning" : "pinyin";
         let options = [
             hardMode ? word.hanzi : word.meaning
-];
+        ];
 
-        while(options.length<4){
+        const distractors = buildDistractors(
+            word,
+            sourceWords,
+            hardMode,
+            6
+        );
+
+        for (const distractor of distractors) {
+            if (!options.includes(distractor)) {
+                options.push(distractor);
+            }
+
+            if (options.length >= 4) {
+                break;
+            }
+        }
+
+        while (options.length < 4) {
 
             const randomWord =
                 sourceWords[
-                    Math.floor(Math.random()*sourceWords.length)
+                    Math.floor(Math.random() * sourceWords.length)
                 ];
 
             const random =
@@ -730,7 +890,7 @@ const selected =
                     ? randomWord.hanzi
                     : randomWord.meaning;
 
-            if(!options.includes(random)){
+            if (!options.includes(random)) {
                 options.push(random);
             }
         }
@@ -819,6 +979,10 @@ function submitQuiz(){
 
     result.innerHTML = `🎯 ${score}/${questions.length} điểm`;
     result.style.color = color;
+
+    if (score < 10) {
+        shiranuiSay("Gà VL");
+    }
 }
 function updateTimerDisplay(){
 
