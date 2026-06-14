@@ -561,6 +561,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const shiranuiToggle = document.getElementById("shiranuiToggle");
 const shiranui = document.querySelector(".assistant");
 const talk = document.getElementById("talk");
+const storageKey = "shiranui-visible";
 
 const onMessages = [
     "Cảm ơn đã cho tôi ra khỏi đây 😭",
@@ -576,9 +577,13 @@ const offMessages = [
 
 if (shiranuiToggle && shiranui) {
 
-    shiranui.style.display = "none";
+    const savedState = localStorage.getItem(storageKey) === "true";
+    shiranuiToggle.checked = savedState;
+    shiranui.style.display = savedState ? "flex" : "none";
 
     shiranuiToggle.addEventListener("change", () => {
+
+        localStorage.setItem(storageKey, shiranuiToggle.checked ? "true" : "false");
 
         if (shiranuiToggle.checked) {
 

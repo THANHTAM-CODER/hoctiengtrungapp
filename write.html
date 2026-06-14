@@ -114,6 +114,51 @@ textarea{
 .modal-content h2{
     text-align:center;
 }
+.assistant{
+    position:fixed;
+    left:15px;
+    top:15px;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.talk{
+    max-width:220px;
+    background:white;
+    padding:12px 15px;
+    border-radius:20px;
+    margin-bottom:10px;
+    font-size:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px);
+    transition:0.3s;
+}
+
+.talk.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.avatar-circle{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    overflow:hidden;
+    border:4px solid rgba(255,255,255,0.8);
+    background:white;
+    box-shadow:0 8px 25px rgba(0,0,0,0.35);
+}
+
+.avatar-circle video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
 a{
     display:inline-block;
     margin-top:20px;
@@ -128,6 +173,15 @@ a{
 
 <body>
 
+<div class="assistant">
+    <div class="talk" id="talk">Xin chào 😄</div>
+    <div class="avatar-circle">
+        <video autoplay loop muted playsinline>
+            <source src="nhanvat.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
 <div class="container">
 
     <h1>✍️ Dịch Hán Việt</h1>
@@ -135,15 +189,15 @@ a{
     <textarea id="inputText" placeholder="Nhập đoạn văn..." oninput="translateText()"></textarea>
 
     <div style="margin-top:15px;">
-        <button class="tts-btn" onclick="readChinese(event)">🔊 Đọc tiếng Trung</button>
-        <button class="tts-btn" onclick="readVietnamese(event)">📖 Đọc nghĩa</button>
-        <button class="tts-btn" onclick="openGuide()">📘 Hướng dẫn</button>
+        <button class="tts-btn" onclick="readChinese(event)" onmouseenter="showTalkAlternating('writeReadChinese', ['Không tự đọc được à', 'Thôi đừng nhấn để tôi đọc cho : ní hảo hehe', 'Wǒ xǐhuān nǐ'])" onmouseleave="hideTalk()">🔊 Đọc tiếng Trung</button>
+        <button class="tts-btn" onclick="readVietnamese(event)" onmouseenter="showTalkAlternating('writeReadVietnamese', ['Tiếng việt mà cũng phải nghe à', 'Học lại tiếng việt đi', 'Đọc làm gì'])" onmouseleave="hideTalk()">📖 Đọc nghĩa</button>
+        <button class="tts-btn" onclick="openGuide()" onmouseenter="showTalkAlternating('writeGuide', ['Đọc cho kỹ kẻo sai', 'Hướng dẫn đọc làm gì vô làm luôn đi', 'Đọc xong cũng out'])" onmouseleave="hideTalk()">📘 Hướng dẫn</button>
     </div>
   
 
     <div class="result" id="result">...</div>
 
-    <a href="menu.html">🏠 Trang chủ</a>
+    <a href="menu.html" onmouseenter="showTalkAlternating('writeHome', ['Thoát về học lại đi', 'Viết gì sai Pinyin hoài', 'Bye Bye'])" onmouseleave="hideTalk()">🏠 Trang chủ</a>
 </div>
 <div id="guideModal" class="modal">
     <div class="modal-content">
@@ -164,6 +218,7 @@ a{
     </div>
 </div>
 <script src="sentences2.js"></script>
+<script src="shiranui.js"></script>
 
 <script>
 

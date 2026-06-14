@@ -51,6 +51,15 @@ body::before{
 
 <div class="petals"></div>
 
+<div class="assistant">
+    <div class="talk" id="talk">Xin chào 😄</div>
+    <div class="avatar-circle">
+        <video autoplay loop muted playsinline>
+            <source src="nhanvat.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
 <!-- 📘 HƯỚNG DẪN MODAL -->
 <div id="guideModal" class="modal">
     <div class="modal-content">
@@ -79,11 +88,11 @@ body::before{
 
         <br>
 
-        <button onclick="checkAnswer()">Kiểm Tra</button>
-        <button onclick="randomWord()">Random Từ</button>
-        <button onclick="openGuide()">📘 Hướng dẫn</button>
+        <button onclick="checkAnswer()" onmouseenter="showTalkAlternating('randomCheck', ['Chắc chưa mà nhấn', 'Sai chắc rồi', 'Tỉ lệ đúng chắc 50%'])" onmouseleave="hideTalk()">Kiểm Tra</button>
+        <button onclick="randomWord()" onmouseenter="showTalkAlternating('randomWord', ['Ra từ khó đó', 'Hehe', 'Nhấn mạnh dạn lên nhát vậy'])" onmouseleave="hideTalk()">Random Từ</button>
+        <button onclick="openGuide()" onmouseenter="showTalkAlternating('randomGuide', ['Đọc cho kỹ kẻo sai', 'Hướng dẫn đọc làm gì vô làm luôn đi', 'Đọc xong cũng out'])" onmouseleave="hideTalk()">📘 Hướng dẫn</button>
 
-        <button onclick="location.href='menu.html'">
+        <button onclick="location.href='menu.html'" onmouseenter="showTalkAlternating('randomHome', ['Thoát về học lại đi', 'Làm sai nhiều thì thoát đi', 'Bye Bye'])" onmouseleave="hideTalk()">
             🏠 Trang chủ 
         </button>
 
@@ -102,6 +111,7 @@ body::before{
 </div>
 
 <script src="sentences2.js"></script>
+<script src="shiranui.js"></script>
 
 <audio id="soundCorrect" src="concertD.mp3"></audio>
 <audio id="soundWrong" src="concertS.mp3"></audio>

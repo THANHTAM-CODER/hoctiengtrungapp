@@ -416,6 +416,51 @@ button{
     transform:translateY(-3px);
     box-shadow:0 10px 25px rgba(37,99,235,.4);
 }
+.assistant{
+    position:fixed;
+    left:15px;
+    top:15px;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.talk{
+    max-width:220px;
+    background:white;
+    padding:12px 15px;
+    border-radius:20px;
+    margin-bottom:10px;
+    font-size:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px);
+    transition:0.3s;
+}
+
+.talk.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.avatar-circle{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    overflow:hidden;
+    border:4px solid rgba(255,255,255,0.8);
+    background:white;
+    box-shadow:0 8px 25px rgba(0,0,0,0.35);
+}
+
+.avatar-circle video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
 #timerDisplay{
     display:none;
 
@@ -460,6 +505,15 @@ button{
 </head>
 <body>
 
+<div class="assistant">
+    <div class="talk" id="talk">Xin chào 😄</div>
+    <div class="avatar-circle">
+        <video autoplay loop muted playsinline>
+            <source src="nhanvat.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
 <div id="startScreen" class="start-screen">
     <div class="start-card">
 
@@ -469,7 +523,7 @@ button{
 
         <div class="check-card">
 
-            <label class="check-row">
+            <label class="check-row" onmouseenter="showTalkAlternating('testAllLessons', ['Sao bỏ tick vậy', 'Mấy con gà bỏ tick', 'Học kém vậy'])" onmouseleave="hideTalk()">
                 <input type="checkbox" id="allLessons" checked>
                 <span class="check-icon">📚</span>
                 <span class="check-text">Toàn bộ từ vựng</span>
@@ -477,7 +531,7 @@ button{
 
             <hr>
 
-            <label class="check-row">
+            <label class="check-row" onmouseenter="showTalkAlternating('testTimer', ['Chọn cái ít thời gian nhất đi', 'Tính chọn cái dài nhất chứ gì gà dị', 'Chọn thời gian bạn muốn'])" onmouseleave="hideTalk()">
                 <input type="checkbox" id="enableTimer">
                 <span class="check-icon">⏱️</span>
                 <span class="check-text">Đếm thời gian</span>
@@ -485,7 +539,7 @@ button{
 
             <hr>
 
-            <label class="check-row">
+            <label class="check-row" onmouseenter="showTalkAlternating('testHard', ['Giỏi dữ trời', 'Tôi rất thích độ chịu chơi của bạn', '汉语不难'])" onmouseleave="hideTalk()">
                 <input type="checkbox" id="hardMode">
                 <span class="check-icon">🔥</span>
                 <span class="check-text">Độ khó cao</span>
@@ -546,9 +600,9 @@ button{
         <br>
 
         <div class="btn-row">
-            <button onclick="startQuiz()">Bắt đầu</button>
-            <button onclick="openGuide()">Hướng dẫn</button>
-            <button onclick="goHomePage()">Trang chủ</button>
+            <button onclick="startQuiz()" onmouseenter="showTalkAlternating('testStart', ['Vào chiến liền nhanh', 'Chọn chế độ chưa', 'Bắt đầu học nhé'])" onmouseleave="hideTalk()">Bắt đầu</button>
+            <button onclick="openGuide()" onmouseenter="showTalkAlternating('testGuide', ['Hướng dẫn tiếng trung là gì biết không', 'Đúng rồi nhấn vô đọc đi', 'Đọc làm gì vô làm đi'])" onmouseleave="hideTalk()">Hướng dẫn</button>
+            <button onclick="goHomePage()" onmouseenter="showTalkAlternating('testHome', ['Chạy rồi à', 'Soa rời sớm vậy bạn', 'Bye Bye'])" onmouseleave="hideTalk()">Trang chủ</button>
         </div>
 
     </div>
@@ -578,6 +632,7 @@ button{
 </div>
 
 <script src="sentences2.js"></script>
+<script src="shiranui.js"></script>
 
 <script>
 const backgrounds = [

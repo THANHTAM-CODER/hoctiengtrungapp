@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="ui.css">
 <title>Tìm kiếm tiếng Trung</title>
 
 <style>
@@ -160,10 +161,26 @@ button:hover {
     h3 { font-size: 16px; }
     input { width: 95%; }
 }
+/* LAYER NHÂN VẬT */
+.character-layer{
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* nằm trên nền nhưng dưới container */
+    pointer-events: none;
+}
+
 </style>
 </head>
 
 <body>
+<div class="assistant">
+    <div class="talk" id="talk">Xin chào 😄</div>
+    <div class="avatar-circle">
+        <video autoplay loop muted playsinline>
+            <source src="nhanvat.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
 
 <div class="container">
 
@@ -176,28 +193,28 @@ onkeydown="if(event.key==='Enter') searchWord()">
 
 <br>
 
-<button id="searchBtn" onclick="searchWord()">Tìm kiếm</button>
-<button id="toggleBtn" onclick="toggleMode()">Chuyển sang: Nghĩa</button>
-<button id="deleteBtn" onclick="clearSearch()">🗑 Xóa</button>
-<button id="backBtn" onclick="goHome()">🏠 Trang Chủ</button>
-<button onclick="showHelp()">📖 Hướng dẫn</button>
-<button onclick="exportExcel()">📊 Xuất Excel</button>
+<button id="searchBtn" onclick="searchWord()" onmouseenter="showTalkAlternating('searchBtn', ['Tìm kiếm gì đó', 'Tìm kiếm 你好 chứ gì học tới HSK mấy rồi'])" onmouseleave="hideTalk()">Tìm kiếm</button>
+<button id="toggleBtn" onclick="toggleMode()" onmouseenter="showTalkAlternating('toggleBtn', ['không biết mặt chữ hán à', 'Sao không xài tìm bằng chữ Hán chưa học bài à'])" onmouseleave="hideTalk()">Chuyển sang: Nghĩa</button>
+<button id="deleteBtn" onclick="clearSearch()" onmouseenter="showTalkAlternating('deleteBtn', ['xóa tay đi', 'Xóa đi những nỗi buồn'])" onmouseleave="hideTalk()">🗑 Xóa</button>
+<button id="backBtn" onclick="goHome()" onmouseenter="showTalkAlternating('backBtn', ['Quay về luyện thêm đi', 'ra làm liền đề độ khó cao đi'])" onmouseleave="hideTalk()">🏠 Trang Chủ</button>
+<button onclick="showHelp()" onmouseenter="showTalkAlternating('helpBtn', ['Đọc hướng dẫn giúp bạn hiểu rõ hơn', 'Hướng dẫn đường vào tim mình đó'])" onmouseleave="hideTalk()">📖 Hướng dẫn</button>
+<button onclick="exportExcel()" onmouseenter="showTalkAlternating('exportBtn', ['Xuất xong về có xem không', 'Về nhớ mà học'])" onmouseleave="hideTalk()">📊 Xuất Excel</button>
 
 <div id="result"></div>
 
 </div>
 
 <script src="sentences2.js"></script>
+<script src="shiranui.js"></script>
 
 <script>
 
 let searchMode = "hanzi";
 let found = [];
 
-/* đổi mode */
 function toggleMode() {
-    let btn = document.getElementById("toggleBtn");
-    let modeText = document.getElementById("modeText");
+    const btn = document.getElementById("toggleBtn");
+    const modeText = document.getElementById("modeText");
 
     if (searchMode === "hanzi") {
         searchMode = "meaning";
@@ -210,14 +227,12 @@ function toggleMode() {
     }
 }
 
-/* tìm kiếm */
 function searchWord() {
-
-    let input = document.getElementById("searchInput")
-    .value
-    .trim()
-    .toLowerCase();
-    let resultDiv = document.getElementById("result");
+    const input = document.getElementById("searchInput")
+        .value
+        .trim()
+        .toLowerCase();
+    const resultDiv = document.getElementById("result");
 
     resultDiv.innerHTML = "";
 
@@ -228,32 +243,23 @@ function searchWord() {
 
     found = [];
 
-    /* tìm theo bài B1, B2, B13... */
     const lessonMatch = input.match(/^b(\d+)$/i);
 
-    if(lessonMatch){
+    if (lessonMatch) {
+        const lessonNumber = parseInt(lessonMatch[1]);
 
-        const lessonNumber =
-            parseInt(lessonMatch[1]);
+        found = sentences2.filter(item => item.lesson === lessonNumber);
+    } else {
+        found = sentences2.filter(item => {
+            if (searchMode === "hanzi") {
+                return item.hanzi === input;
+            }
 
-        found = sentences2.filter(item =>
-            item.lesson === lessonNumber
-        );
-
-}else{
-
-    found = sentences2.filter(item => {
-
-        if (searchMode === "hanzi") {
-            return item.hanzi === input;
-        }
-
-        return (item.meaning || "")
-            .toLowerCase()
-            .includes(input);
-    });
-
-}
+            return (item.meaning || "")
+                .toLowerCase()
+                .includes(input);
+        });
+    }
 
     if (found.length === 0) {
         resultDiv.innerHTML = "❌ Không tìm thấy từ cần tìm !";
@@ -283,7 +289,6 @@ function searchWord() {
     });
 }
 
-/* phát âm */
 function speakChinese(text) {
     speechSynthesis.cancel();
 
@@ -294,23 +299,19 @@ function speakChinese(text) {
     speechSynthesis.speak(utterance);
 }
 
-/* xóa */
 function clearSearch() {
     document.getElementById("searchInput").value = "";
     document.getElementById("result").innerHTML = "";
 }
 
-/* về trang chủ */
 function goHome() {
     window.location.href = "menu.html";
 }
 
-/* hướng dẫn */
 function showHelp() {
     alert("Nhập từ cần tìm → Đổi chế độ Hán/Nghĩa nếu muốn tìm theo nghĩa hoặc hán tự → 🔊 nghe phát âm" + "\n" + "⚠️ Nếu kiếm số thì chỉ ghi số không ghi thêm từ \"số\"");
 }
 
-/* 🔥 ĐỒNG BỘ NỀN TOÀN WEB */
 window.addEventListener("load", () => {
     const saved = localStorage.getItem("bg-index");
 
@@ -322,16 +323,16 @@ window.addEventListener("load", () => {
         "bg-china5.png"
     ];
 
-    if(saved !== null){
+    if (saved !== null) {
         document.documentElement.style.setProperty(
             '--bg-image',
             `url("${backgrounds[saved]}")`
         );
     }
 });
-function exportExcel(){
 
-    if(found.length === 0){
+function exportExcel() {
+    if (found.length === 0) {
         alert("Không có dữ liệu để xuất!");
         return;
     }
@@ -343,19 +344,11 @@ function exportExcel(){
     }));
 
     const ws = XLSX.utils.json_to_sheet(data);
-
     const wb = XLSX.utils.book_new();
 
-    XLSX.utils.book_append_sheet(
-        wb,
-        ws,
-        "TuVung"
-    );
+    XLSX.utils.book_append_sheet(wb, ws, "TuVung");
 
-    XLSX.writeFile(
-        wb,
-        "TuVungTiengTrung.xlsx"
-    );
+    XLSX.writeFile(wb, "TuVungTiengTrung.xlsx");
 }
 </script>
 <audio id="bgMusic" loop></audio>

@@ -1,0 +1,62 @@
+/* ===== BACKGROUND ===== */
+:root{
+    --bg-image: url("bg-china2.png");
+}
+
+body{
+    margin:0;
+    font-family: Arial;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* nền chung */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image: var(--bg-image);
+    background-size:cover;
+    background-position:center;
+    z-index:-2;
+}
+
+/* ===== CARD CHUNG ===== */
+.container{
+    position:relative;
+    z-index:1;
+
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(15px);
+
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* ===== NHÂN VẬT CHUNG ===== */
+.assistant{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    z-index:9999;
+}
+
+.avatar-circle{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid white;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+.avatar-circle video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
