@@ -235,7 +235,37 @@ let sentences2 = [
     { lesson: 13, hanzi: "号码",   pinyin: "hàomǎ",       meaning: "mã số; số hiệu; số điện thoại" },
     { lesson: 13, hanzi: "门",     pinyin: "mén",         meaning: "cửa; cổng" },
     { lesson: 13, hanzi: "找",     pinyin: "zhǎo",        meaning: "tìm; kiếm" },
-    { lesson: 13, hanzi: "在",     pinyin: "zài",        meaning: "ở,đang" }
+    { lesson: 13, hanzi: "在",     pinyin: "zài",        meaning: "ở,đang" },
+
+    // ================= BÀI 14 ================
+    { lesson: 14, hanzi: "先",    pinyin: "xiān", meaning: "trước, trước tiên" },
+    { lesson: 14, hanzi: "位",    pinyin: "wèi", meaning: "vị, người (lượng từ lịch sự)" },
+    { lesson: 14, hanzi: "欢迎",  pinyin: "huānyíng", meaning: "hoan nghênh, chào mừng" },
+    { lesson: 14, hanzi: "学生",  pinyin: "xuésheng", meaning: "học sinh, sinh viên" },
+    { lesson: 14, hanzi: "也",    pinyin: "yě", meaning: "cũng" },
+    { lesson: 14, hanzi: "我们",  pinyin: "wǒmen", meaning: "chúng tôi, chúng ta" },
+    { lesson: 14, hanzi: "留学生",pinyin: "liúxuéshēng", meaning: "du học sinh" },
+    { lesson: 14, hanzi: "都",    pinyin: "dōu", meaning: "đều, tất cả" },
+    { lesson: 14, hanzi: "买什么",pinyin: "mǎi shénme", meaning: "mua gì" },
+    { lesson: 14, hanzi: "俩",   pinyin: "liǎ", meaning: "hai, hai người" },
+    { lesson: 14, hanzi: "秘书", pinyin: "mìshū", meaning: "thư ký" },
+    { lesson: 14, hanzi: "教授", pinyin: "jiàoshòu", meaning: "giáo sư" },
+    { lesson: 14, hanzi: "校长", pinyin: "xiàozhǎng", meaning: "hiệu trưởng" },
+
+        // ================= BÀI 14 ================
+    { lesson: 15, hanzi: "语言", pinyin: "yǔyán", meaning: "ngôn ngữ" },
+    { lesson: 15, hanzi: "怎么样", pinyin: "zěnmeyàng", meaning: "thế nào, như thế nào" },
+    { lesson: 15, hanzi: "大学", pinyin: "dàxué", meaning: "đại học" },
+    { lesson: 15, hanzi: "觉得", pinyin: "juéde", meaning: "cảm thấy, thấy rằng" },
+    { lesson: 15, hanzi: "语法", pinyin: "yǔfǎ", meaning: "ngữ pháp" },
+    { lesson: 15, hanzi: "听", pinyin: "tīng", meaning: "nghe" },
+    { lesson: 15, hanzi: "比较", pinyin: "bǐjiào", meaning: "tương đối, so sánh" },
+    { lesson: 15, hanzi: "容易", pinyin: "róngyì", meaning: "dễ dàng" },
+    { lesson: 15, hanzi: "读", pinyin: "dú", meaning: "đọc" },
+    { lesson: 15, hanzi: "但是", pinyin: "dànshì", meaning: "nhưng, tuy nhiên" },
+    { lesson: 15, hanzi: "新", pinyin: "xīn", meaning: "mới" },
+    { lesson: 15, hanzi: "同学", pinyin: "tóngxué", meaning: "bạn học" },
+    { lesson: 15, hanzi: "同屋", pinyin: "tóngwū", meaning: "bạn cùng phòng" }
 
 
 ];  
