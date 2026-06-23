@@ -252,7 +252,7 @@ let sentences2 = [
     { lesson: 14, hanzi: "教授", pinyin: "jiàoshòu", meaning: "giáo sư" },
     { lesson: 14, hanzi: "校长", pinyin: "xiàozhǎng", meaning: "hiệu trưởng" },
 
-        // ================= BÀI 14 ================
+        // ================= BÀI 15 ================
     { lesson: 15, hanzi: "语言", pinyin: "yǔyán", meaning: "ngôn ngữ" },
     { lesson: 15, hanzi: "怎么样", pinyin: "zěnmeyàng", meaning: "thế nào, như thế nào" },
     { lesson: 15, hanzi: "大学", pinyin: "dàxué", meaning: "đại học" },
@@ -265,7 +265,32 @@ let sentences2 = [
     { lesson: 15, hanzi: "但是", pinyin: "dànshì", meaning: "nhưng, tuy nhiên" },
     { lesson: 15, hanzi: "新", pinyin: "xīn", meaning: "mới" },
     { lesson: 15, hanzi: "同学", pinyin: "tóngxué", meaning: "bạn học" },
-    { lesson: 15, hanzi: "同屋", pinyin: "tóngwū", meaning: "bạn cùng phòng" }
+    { lesson: 15, hanzi: "同屋", pinyin: "tóngwū", meaning: "bạn cùng phòng" },
+
+    // ================= BÀI 16 ================
+    { lesson: 16, hanzi: "重", pinyin: "zhòng", meaning: "nặng" },
+    { lesson: 16, hanzi: "轻", pinyin: "qīng", meaning: "nhẹ" },
+    { lesson: 16, hanzi: "黑", pinyin: "hēi", meaning: "đen" },
+    { lesson: 16, hanzi: "红", pinyin: "hóng", meaning: "đỏ" },
+    { lesson: 16, hanzi: "旧", pinyin: "jiù", meaning: "cũ" },
+    { lesson: 16, hanzi: "药", pinyin: "yào", meaning: "thuốc" },
+    { lesson: 16, hanzi: "西药", pinyin: "xīyào", meaning: "thuốc tây" },
+    { lesson: 16, hanzi: "中药", pinyin: "zhōngyào", meaning: "thuốc đông y" },
+    { lesson: 16, hanzi: "里", pinyin: "lǐ", meaning: "bên trong" },
+    { lesson: 16, hanzi: "词典", pinyin: "cídiǎn", meaning: "từ điển" },
+    { lesson: 16, hanzi: "张", pinyin: "", meaning: "miếng" },
+    { lesson: 16, hanzi: "日用品", pinyin: "rìyòngpǐn", meaning: "đồ dùng hàng ngày" },
+    { lesson: 16, hanzi: "件", pinyin: "gè", meaning: "cái - chiếc (chỉ số lượng)" },
+    { lesson: 16, hanzi: "衣服", pinyin: "yīfu", meaning: "quần áo" },
+    { lesson: 16, hanzi: "雨伞", pinyin: "yǔsǎn", meaning: "cái ô" },
+    { lesson: 16, hanzi: "瓶", pinyin: "píng", meaning: "chai - lọ" },
+    { lesson: 16, hanzi: "香水", pinyin: "xiāngshuǐ", meaning: "nước hoa" },
+    { lesson: 16, hanzi: "张", pinyin: "zhāng", meaning: "tờ, cái (lượng từ cho giấy, vé, bàn...)" },
+    { lesson: 16, hanzi: "箱子", pinyin: "xiāngzi", meaning: "vali" },
+    { lesson: 16, hanzi: "件", pinyin: "jiàn", meaning: "cái, chiếc (lượng từ cho quần áo, sự việc)" },
+    { lesson: 16, hanzi: "把", pinyin: "bǎ", meaning: "cái (lượng từ cho vật có cán/tay cầm)" },
+    { lesson: 16, hanzi: "支", pinyin: "zhī", meaning: "chiếc (lượng từ cho bút, vật dài)" },
+    { lesson: 16, hanzi: "光盘", pinyin: "guāngpán", meaning: "đĩa CD" }
 
 
 ];  
